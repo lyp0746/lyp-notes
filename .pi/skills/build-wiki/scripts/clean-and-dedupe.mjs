@@ -52,8 +52,19 @@ const stripThinking = h => {
   s = s.replace(/<p>\s*📊\s*统计[：:][\s\S]*?<\/p>\s*/gi, '');
   return s;
 };
+// 纯 Markdown（已无 HTML）的清洗：只去导出伪影，绝不碰正文中的 < > 数学符号。
+const cleanupMarkdown = h => h
+  .replace(/^([A-Za-z][A-Za-z0-9+#._-]*)\n复制\n下载\n```[ \t]*$/gm, '```$1') // 语言标签错位
+  .replace(/^复制[ \t]*$/gm, '').replace(/^下载[ \t]*$/gm, '')                    // 复制/下载按钮
+  .replace(/^>\s*📊\s*统计[：:].*$/gm, '')                                       // markdown 统计脚注
+  .replace(/\n{3,}/g, '\n\n')
+  .trim();
+// 仅当输入确为 HTML 时才走 HTML→Markdown；否则直接做 markdown 清洗。
+// 注意：旧版对纯 Markdown 也套用 /<[^>]+>/ 清标签，会误删 $a<b>c$、\<u,v\> 等，造成正文丢失。
 const htmlToMd = h => {
   h = (KEEP_THINKING ? h : stripThinking(h)).trim();
+  const looksHtml = /<\/(?:p|div|li|h[1-6]|blockquote|table|tr|td|details|summary|span|code|pre|ul|ol)>|<br\s*\/?>/i.test(h);
+  if (!looksHtml) return cleanupMarkdown(h);
   if (conv) { try { return conv.turndown(h).trim(); } catch { /* fall through */ } }
   return h.replace(/<\/(p|div|li|h[1-6]|blockquote|tr)>/gi, '\n').replace(/<br\s*\/?>/gi, '\n')
     .replace(/<li[^>]*>/gi, '- ').replace(/<[^>]+>/g, '')

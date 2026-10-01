@@ -48,6 +48,8 @@ description: 把 raw 原始素材（DeepSeek 网页版导出工具产出的对�
 - 还原 KaTeX、**删除思考过程**（`<details>` 块）、**删除结尾统计脚注行**。
 - 按「去空白文本」哈希去重，保留首次出现，顺序即原始顺序。
 - 一键：`node scripts/clean-and-dedupe.mjs --in <目录> --out <文件>`（可选 `--user/--assistant` 指定标记正则；脚本自动识别 `<details>` 思考块和统计脚注行）。
+- 脚本已内置导出伪影清理：`复制`/`下载` 按钮行、错位的代码块语言标签（`python`+`复制`+`下载`+\`\`\` → \`\`\`python）、markdown 形式的 `> 📊 统计…` 脚注。
+- **纯 Markdown 输入不会被套用 HTML 清标签正则**（旧版会对 `<[^>]+>` 一刀切，误删 `$a<b$`、`<u,v>` 等正文，实测可丢失约 12% 内容）；只有确为 HTML 时才走 `turndown`/正则转换。
 - 尽量一次性批量处理整批素材，避免多轮重复调用同一工具造成上下文重复计费。
 
 ### 3. 按内容命名 + 归档 raw
@@ -76,9 +78,8 @@ description: 把 raw 原始素材（DeepSeek 网页版导出工具产出的对�
 
 ### 7. 校验
 
-- 所有 `[[链接]]` 可解析（除语法示例）。
-- 每个 wiki 页五字段 frontmatter 完整、有「参考源」。
-- 索引与目录内容一致。
+- 一键：`node scripts/validate.mjs <vault根>`（可加 `--ignore '^AGENTS\.md$'` 排除含语法示例的文件），检查全部 `[[链接]]` 是否可解析、wiki 页五字段 frontmatter 与「参考源/相关」是否完整；有问题时退出码为 1。
+- 人工复核：索引与目录内容一致。
 
 ### 8. 纳入 Git（可选）
 
@@ -123,4 +124,5 @@ wiki/知识索引.md + 概念/ 实体/ 主题/（各含 *索引.md）
 output/产出索引.md + *.md
 templates/{读书笔记模板,概念笔记模板}.md
 .pi/skills/build-wiki/
+.pi/skills/build-wiki/scripts/{clean-and-dedupe.mjs,validate.mjs}
 ```
