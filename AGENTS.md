@@ -27,6 +27,7 @@
 ├── templates/                 # 笔记模板
 ├── .githooks/pre-commit       # 提交前链接/锚点/frontmatter 校验
 ├── .pi/skills/build-wiki/     # raw → wiki → output 流程与脚本
+├── 数学大地图.md / .canvas     # 全库顶层地图（分支 × 书 × 主线 × 方法论）
 ├── 总索引.md                   # 全局导航索引
 ├── README.md                  # 面向访客的总说明
 └── AGENTS.md                  # 本文件

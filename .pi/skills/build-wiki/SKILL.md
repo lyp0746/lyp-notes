@@ -85,9 +85,12 @@ description: 把 raw 原始素材（DeepSeek 网页版导出工具产出的对�
 
 - **复习卡**由 raw 自动提取（分享/自测用）：`node scripts/build-review-cards.mjs --in <章节目录> --out output/<书>复习卡.md --title <书名> --link <书名-伴读> --tags "数学,微积分"`，抓取各章节的「主动回忆问题 / 发散性提问 / 发散性问题」。
 
-### 6. 更新索引（领域相关中文名）
+### 6. 更新索引 + 大地图（领域相关中文名）
 
 `总索引.md`、`素材索引.md`、`知识索引.md`、`概念索引.md`、`实体索引.md`、`主题索引.md`、`产出索引.md`，列出同层全部页面及一句话摘要。
+
+- **更新 `数学大地图.md`**：在对应分支挂上新书（`**分支 ★** — [[书名]]（[[书名-导读]]）`）；出现跨分支联系时在「交叉主线」新增一条主题页。
+- 可视版 `数学大地图.canvas` 同步加减节点（新增/平移分支 group 与 file 节点，保持 id 唯一、边不悬空）。
 
 ### 7. 校验
 
@@ -121,13 +124,14 @@ node .pi/skills/build-wiki/scripts/split-raw.mjs --in "raw/数学/<分支>/<书�
 node .pi/skills/build-wiki/scripts/normalize-raw.mjs --dir "raw/数学/<分支>/<书名>"
 # 3. 若有旧单体锚点，改指到章节文件
 node .pi/skills/build-wiki/scripts/relink-raw.mjs --root .
-# 4. 编译 wiki 概念/实体/主题页（结构见第 4 步）
-# 5. 生成 output（章节地图/速查表/学习路线/复习卡）
+# 6. 编译 wiki 概念/实体/主题页（结构见第 4 步）
+# 7. 生成 output（章节地图/速查表/学习路线/复习卡）
 node .pi/skills/build-wiki/scripts/build-review-cards.mjs --in "raw/数学/<分支>/<书名>" \
      --out "output/<书>复习卡.md" --title "<书>" --link "<书名>-伴读" --tags "数学,<分支>"
-# 6. 更新全部索引；运行校验
+# 8. 更新全部索引 + 把新书挂到 数学大地图（必要时加交叉主线）
+# 9. 运行校验
 node .pi/skills/build-wiki/scripts/validate.mjs --ignore '^AGENTS\.md$'
-# 7. 提交（pre-commit 会自动校验）
+# 10. 提交（pre-commit 会自动校验）
 ```
 
 ## 命名与规范速查
@@ -158,7 +162,7 @@ node .pi/skills/build-wiki/scripts/validate.mjs --ignore '^AGENTS\.md$'
 ## 目录结构
 
 ```
-README.md / 总索引.md / AGENTS.md
+README.md / 数学大地图.md / 数学大地图.canvas / 总索引.md / AGENTS.md
 raw/素材索引.md
 raw/<学科>/<分支>/<书名>/{书名-伴读.md, 书名-第NN章-内容.md}
 wiki/知识索引.md + 概念/ 实体/ 主题/（各含 *索引.md）

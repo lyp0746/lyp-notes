@@ -20,17 +20,23 @@ for (let i = 0; i < argv.length; i++) {
 const ROOT = path.resolve(ROOT_ARG || process.cwd());
 
 const SKIP = new Set(['.git', '.obsidian', '.pi', '.trash', 'node_modules']);
-const walk = (dir, out = []) => {
+const walk = (dir, out = [], all = false) => {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (e.isDirectory()) { if (!SKIP.has(e.name)) walk(path.join(dir, e.name), out); }
-    else if (e.name.toLowerCase().endsWith('.md')) out.push(path.join(dir, e.name));
+    if (e.isDirectory()) { if (!SKIP.has(e.name)) walk(path.join(dir, e.name), out, all); }
+    else if (all || e.name.toLowerCase().endsWith('.md')) out.push(path.join(dir, e.name));
   }
   return out;
 };
 
 const files = walk(ROOT);
 const rel = f => path.relative(ROOT, f);
-const byName = new Map(files.map(f => [path.basename(f, '.md'), f]));
+// 名称索引：.md 用无后缀名，非 md（.canvas/.png 等）用完整文件名（Obsidian 链接带扩展名）
+const byName = new Map();
+for (const f of walk(ROOT, [], true)) {
+  const base = path.basename(f);
+  byName.set(base, f);
+  if (base.toLowerCase().endsWith('.md')) byName.set(base.slice(0, -3), f);
+}
 
 // 每个文件的标题集合（去重，含 Obsidian 的重复标题 -1/-2 后缀形式）
 const headingsCache = new Map();
