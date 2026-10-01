@@ -1,20 +1,25 @@
 #!/usr/bin/env node
-// validate.mjs — 校验 vault 的 wikilink 可解析性与 wiki 页 frontmatter。
+// validate.mjs — 校验 vault 的 wikilink（含标题锚点）与 wiki 页 frontmatter。
 //
 // 用法: node validate.mjs [vault根目录] [--ignore <正则>]
-//   默认根目录为当前工作目录；'*语法示例*.md' 等可加入 --ignore。
+//   默认根目录为当前工作目录；含语法示例的文件（如 AGENTS.md）可加入 --ignore。
 //
-// 退出码: 0 全部通过；1 存在失效链接或 frontmatter 缺失。
+// 退出码: 0 全部通过；1 存在失效链接/锚点或 frontmatter 缺失。
 
 import fs from 'fs';
 import path from 'path';
 
-const args = process.argv.slice(2);
-const ROOT = path.resolve(args.find(a => !a.startsWith('--')) || process.cwd());
-const ignoreIdx = args.indexOf('--ignore');
-const ignore = ignoreIdx >= 0 && args[ignoreIdx + 1] ? new RegExp(args[ignoreIdx + 1]) : null;
+const argv = process.argv.slice(2);
+let ROOT_ARG = '', ignore = null;
+for (let i = 0; i < argv.length; i++) {
+  const a = argv[i];
+  if (a === '--ignore') { ignore = argv[i + 1] ? new RegExp(argv[++i]) : null; continue; }
+  if (a.startsWith('--')) continue;
+  if (!ROOT_ARG) ROOT_ARG = a;
+}
+const ROOT = path.resolve(ROOT_ARG || process.cwd());
 
-const SKIP = new Set(['.git', '.obsidian', '.pi', '.tmp_thomas', 'node_modules', '.trash']);
+const SKIP = new Set(['.git', '.obsidian', '.pi', '.trash', 'node_modules']);
 const walk = (dir, out = []) => {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     if (e.isDirectory()) { if (!SKIP.has(e.name)) walk(path.join(dir, e.name), out); }
@@ -24,24 +29,59 @@ const walk = (dir, out = []) => {
 };
 
 const files = walk(ROOT);
-const basenames = new Set(files.map(f => path.basename(f, '.md')));
 const rel = f => path.relative(ROOT, f);
+const byName = new Map(files.map(f => [path.basename(f, '.md'), f]));
 
-const unresolved = [];
-let links = 0;
+// 每个文件的标题集合（去重，含 Obsidian 的重复标题 -1/-2 后缀形式）
+const headingsCache = new Map();
+const headingsOf = f => {
+  if (headingsCache.has(f)) return headingsCache.get(f);
+  const txt = fs.readFileSync(f, 'utf8');
+  const set = new Set();
+  for (const line of txt.split('\n')) {
+    const m = line.match(/^#{1,6}\s+(.*?)\s*#*\s*$/);
+    if (m) set.add(m[1]);
+  }
+  // 追加重复标题的 -1/-2… 形式
+  const seen = new Map();
+  for (const h of [...set]) {
+    const c = (seen.get(h) || 0) + 1; seen.set(h, c);
+    if (c > 1) set.add(`${h}-${c - 1}`);
+  }
+  headingsCache.set(f, set);
+  return set;
+};
+
+const unresolved = [], badAnchors = [];
+let links = 0, anchors = 0;
 for (const f of files) {
   if (ignore && ignore.test(rel(f))) continue;
   const txt = fs.readFileSync(f, 'utf8');
   for (const m of txt.matchAll(/\[\[([^\]]+)\]\]/g)) {
     links++;
-    const target = m[1].split('|')[0].split('#')[0].trim();
-    if (!basenames.has(target)) unresolved.push(`${rel(f)} -> [[${m[1]}]]`);
+    const raw = m[1];
+    const targetPart = raw.split('|')[0];
+    const [filePart, ...anchorParts] = targetPart.split('#');
+    const target = filePart.trim();
+    const anchor = anchorParts.join('#').trim();
+
+    let targetFile = null;
+    if (target === '') targetFile = f;                 // 同文件锚点 [[#标题]]
+    else if (byName.has(target)) targetFile = byName.get(target);
+    else { unresolved.push(`${rel(f)} -> [[${raw}]]`); continue; }
+
+    if (anchor && !anchor.startsWith('^')) {           // 跳过块引用 ^id
+      anchors++;
+      const set = headingsOf(targetFile);
+      const norm = a => a.replace(/\s+/g, ' ').trim();
+      const ok = set.has(anchor) || [...set].some(h => norm(h) === norm(anchor));
+      if (!ok) badAnchors.push(`${rel(f)} -> [[${raw}]]`);
+    }
   }
 }
 
 const fmMissing = [];
-const wikiDirs = ['wiki/概念', 'wiki/实体', 'wiki/主题'];
-for (const d of wikiDirs) {
+for (const d of ['wiki/概念', 'wiki/实体', 'wiki/主题']) {
   const abs = path.join(ROOT, d);
   if (!fs.existsSync(abs)) continue;
   for (const name of fs.readdirSync(abs)) {
@@ -55,10 +95,9 @@ for (const d of wikiDirs) {
   }
 }
 
-console.log(`扫描 ${files.length} 个 md，${links} 条 wikilink`);
-console.log(`失效链接: ${unresolved.length}`);
-unresolved.forEach(u => console.log('  ✗', u));
-console.log(`wiki 页 frontmatter 问题: ${fmMissing.length}`);
-fmMissing.forEach(u => console.log('  ✗', u));
+console.log(`扫描 ${files.length} 个 md，${links} 条 wikilink（其中 ${anchors} 条带标题锚点）`);
+console.log(`失效目标文件: ${unresolved.length}`); unresolved.forEach(u => console.log('  ✗', u));
+console.log(`失效标题锚点: ${badAnchors.length}`); badAnchors.forEach(u => console.log('  ✗', u));
+console.log(`wiki 页 frontmatter 问题: ${fmMissing.length}`); fmMissing.forEach(u => console.log('  ✗', u));
 
-process.exit(unresolved.length || fmMissing.length ? 1 : 0);
+process.exit(unresolved.length || badAnchors.length || fmMissing.length ? 1 : 0);

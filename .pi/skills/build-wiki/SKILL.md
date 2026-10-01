@@ -52,11 +52,14 @@ description: 把 raw 原始素材（DeepSeek 网页版导出工具产出的对�
 - **纯 Markdown 输入不会被套用 HTML 清标签正则**（旧版会对 `<[^>]+>` 一刀切，误删 `$a<b$`、`<u,v>` 等正文，实测可丢失约 12% 内容）；只有确为 HTML 时才走 `turndown`/正则转换。
 - 尽量一次性批量处理整批素材，避免多轮重复调用同一工具造成上下文重复计费。
 
-### 3. 按内容命名 + 归档 raw
+### 3. 归档 raw（按章拆分 + 目录）
 
-- 路径：`raw/<学科>/<分支>/<书名或主题>-<来源>.md`。
-- 加 frontmatter（`type: literature`）。
-- 若素材是**重叠分片**：合并去重后按内容命名（如按章节拆分 `第01章-…`，或整本 `书名-伴读.md`）。
+- 清洗后的整本先存为 `raw/<学科>/<分支>/<书名>/<书名>-伴读.md`（若为重叠分片，先合并去重）。
+- **按章拆分**：`node scripts/split-raw.mjs --in <书名-伴读.md> --outdir <同名目录> --book thomas|axler|milnor [--toc <书名-伴读.md>] [--dry-run]`；新书在脚本 `PRESETS` 里加一条（章标记正则 + 章名）。
+  - 产物：`书名-第NN章-内容.md`（每章一文件）+ `书名-伴读.md`（目录页，链向各章）。
+  - 拆分**原样搬运轮次、不改正文**；拆完做一次「单体 vs 拆分」归一化比对，确认零损失（见“质量检查清单”）。
+- 每个 raw 文件加 frontmatter（`type: literature`）。
+- 若 wiki 里已有指向旧单体的锚点，运行 `node scripts/relink-raw.mjs --root <vault根> [--dry-run]` 自动改指到章节文件。
 
 ### 4. 编译 wiki（中文命名）
 
@@ -68,16 +71,18 @@ description: 把 raw 原始素材（DeepSeek 网页版导出工具产出的对�
   - `## 典型例子`：1–2 个最说明问题的算例（不必多，能落地即可）。
   - `## 易错点`：常见误区/陷阱（raw 每节末尾常有现成素材）。
   - `## 深入问题`：2–3 个开放问题，可从 raw 的“主动回忆问题 + 发散性提问”提炼。
-- **参考源用标题锚点**：`- [[托马斯微积分-伴读#第5章 积分法 · 5.4 微积分基本定理]]`，直接跳到 raw 对应小节；跨多节时列多条。
+- **参考源用标题锚点**：`- [[托马斯微积分-第05章-积分法#第5章 积分法 · 5.4 微积分基本定理]]`，直接跳到 raw 对应小节；跨多节时列多条。
 - **拆分过粗的页**：一页塞多主题时拆成多个聚焦页，原页保留为**导航总览（hub）**并链向子页，以免打断已有 `[[链接]]`（例：`定积分的应用` → `旋转体体积` / `弧长与旋转曲面面积` / `功与流体压力` / `矩与质心` / `指数变化与可分离方程`）。
 - **实体页**：人物、书籍（`谢尔顿·阿克斯勒.md`、`线性代数应该这样学.md`）。
-- **主题页**：跨概念综述（`…-导读.md`）、统一视角（`向量分析三大定理.md`）、参考表（`微积分符号表.md`）。
+- **主题页**：单书导读（`…-导读.md`）、**跨书桥接**（`导数与线性化：分析的共同语言.md`、`本征值与谱：从矩阵到数据.md` 等，把多本书的同源概念连起来，让图谱不再分片）、统一视角（`向量分析三大定理.md`）、参考表（`微积分符号表.md`）。
 - 多本书可共存于同一 `wiki/概念/`，在 `知识索引.md` 按来源分组。
 - 每个概念至少在「与其他概念的关系」链接 2–3 个邻居。
 
 ### 5. 生成 output
 
-`output/` 下 2–4 篇中文报告：`…-章节地图.md`、`…-核心概念速查表.md`、`…-学习路线.md`。`type: literature`，注明来源 wiki。
+`output/` 下 3–5 篇中文报告：`…-章节地图.md`、`…-核心概念速查表.md`、`…-学习路线.md`、`…-复习卡.md`。`type: literature`，注明来源 wiki。
+
+- **复习卡**由 raw 自动提取（分享/自测用）：`node scripts/build-review-cards.mjs --in <章节目录> --out output/<书>复习卡.md --title <书名> --link <书名-伴读> --tags "数学,微积分"`，抓取各章节的「主动回忆问题 / 发散性提问 / 发散性问题」。
 
 ### 6. 更新索引（领域相关中文名）
 
@@ -85,7 +90,8 @@ description: 把 raw 原始素材（DeepSeek 网页版导出工具产出的对�
 
 ### 7. 校验
 
-- 一键：`node scripts/validate.mjs <vault根>`（可加 `--ignore '^AGENTS\.md$'` 排除含语法示例的文件），检查全部 `[[链接]]` 是否可解析、wiki 页五字段 frontmatter 与「参考源/相关」是否完整；有问题时退出码为 1。
+- 一键：`node scripts/validate.mjs --ignore '^AGENTS\.md$'`（默认当前目录为 vault 根；含语法示例的文件需排除），检查全部 `[[链接]]` 的**目标文件与标题锚点**、wiki 页五字段 frontmatter 与「参考源/相关」；有问题时退出码为 1。
+- **提交前钩子**：`.githooks/pre-commit` 自动运行上述校验；用 `git config core.hooksPath .githooks` 启用（找不到 node 时自动跳过，不阻塞）。
 - 人工复核：索引与目录内容一致。
 
 ### 8. 纳入 Git（可选）
@@ -95,10 +101,31 @@ git init -b main
 git config core.quotepath false && git config core.autocrlf false
 printf '* text=auto eol=lf\n' > .gitattributes
 git add -A && git commit -m "初始化：数学读书笔记库"
+git config core.hooksPath .githooks   # 启用 pre-commit 链接/锚点校验
 git remote add origin <url> && git push -u origin main
 ```
 
 Windows 下用 `D:\Git\cmd\git.exe`，注意 `safe.directory` 与中文路径（`core.quotepath=false`）。
+
+## 接入一本新书（TL;DR）
+
+```bash
+# 0. 素材放入 raw/_inbox/（或分片目录）
+# 1. 清洗去重（删思考/脚注/导出伪影，纯 Markdown 不碰 < >）
+node .pi/skills/build-wiki/scripts/clean-and-dedupe.mjs --in raw/_inbox --out "raw/数学/<分支>/<书名>/<书名>-伴读.md"
+# 2. 按章拆分 + 生成目录（新书先在 split-raw.mjs 的 PRESETS 加一条）
+node .pi/skills/build-wiki/scripts/split-raw.mjs --in "raw/数学/<分支>/<书名>/<书名>-伴读.md" \
+     --outdir "raw/数学/<分支>/<书名>" --book <preset> --toc "raw/数学/<分支>/<书名>/<书名>-伴读.md"
+# 3. 若有旧单体锚点，改指到章节文件
+node .pi/skills/build-wiki/scripts/relink-raw.mjs --root .
+# 4. 编译 wiki 概念/实体/主题页（结构见第 4 步）
+# 5. 生成 output（章节地图/速查表/学习路线/复习卡）
+node .pi/skills/build-wiki/scripts/build-review-cards.mjs --in "raw/数学/<分支>/<书名>" \
+     --out "output/<书>复习卡.md" --title "<书>" --link "<书名>-伴读" --tags "数学,<分支>"
+# 6. 更新全部索引；运行校验
+node .pi/skills/build-wiki/scripts/validate.mjs --ignore '^AGENTS\.md$'
+# 7. 提交（pre-commit 会自动校验）
+```
 
 ## 命名与规范速查
 
@@ -109,13 +136,15 @@ Windows 下用 `D:\Git\cmd\git.exe`，注意 `safe.directory` 与中文路径（
 
 ## 质量检查清单
 
-- [ ] raw 无重复块、无思考过程、无统计脚注、按 学科/分支 归档、命名体现内容。
+- [ ] raw 无重复块、无思考过程、无统计脚注，且**已按章拆分为 `书名-第NN章-*.md` 并有 `书名-伴读.md` 目录**；拆分前后正文归一化比对零损失。
 - [ ] wiki 文件名全中文；每个概念 ≥ 2 条 `[[链接]]`。
-- [ ] 概念页含 `定义/直观/核心要点/典型例子/易错点/关系/深入问题/参考源`，信息密度 ≈2.5–4 KB/页。
-- [ ] 每个 wiki 页有完整五字段 frontmatter 与「参考源」。
-- [ ] output 报告链接回 wiki。
-- [ ] 所有索引（`总索引`/`素材索引`/`知识索引`/`概念索引`/`实体索引`/`主题索引`/`产出索引`）与目录一致，无失效链接。
-- [ ] 如启用 Git：工作区干净、远程已同步。
+- [ ] 概念页含 `定义/直观/核心要点/关键推导/典型例子/易错点/关系/深入问题/参考源`，信息密度 ≈2.5–4 KB/页。
+- [ ] 每个 wiki 页有完整五字段 frontmatter 与「参考源」；参考源用**标题锚点**指向 raw 章节文件。
+- [ ] output 报告链接回 wiki，且含**复习卡**（自动提取自 raw 问题清单）。
+- [ ] 主题层有**跨书桥接**页，避免图谱分成互不连通的团。
+- [ ] 所有索引（`总索引`/`素材索引`/`知识索引`/`概念索引`/`实体索引`/`主题索引`/`产出索引`）与目录一致。
+- [ ] `validate.mjs` 通过：目标文件、标题锚点、frontmatter 全部 0 错。
+- [ ] 如启用 Git：工作区干净、远程已同步、pre-commit 钩子生效。
 
 ## 关于「思考过程」
 
@@ -126,11 +155,13 @@ Windows 下用 `D:\Git\cmd\git.exe`，注意 `safe.directory` 与中文路径（
 ## 目录结构
 
 ```
-总索引.md / AGENTS.md
-raw/<学科>/<分支>/<书名>-伴读.md + 素材索引.md
+README.md / 总索引.md / AGENTS.md
+raw/素材索引.md
+raw/<学科>/<分支>/<书名>/{书名-伴读.md, 书名-第NN章-内容.md}
 wiki/知识索引.md + 概念/ 实体/ 主题/（各含 *索引.md）
-output/产出索引.md + *.md
+output/产出索引.md + {章节地图, 核心概念速查表, 学习路线, 复习卡}
 templates/{读书笔记模板,概念笔记模板}.md
-.pi/skills/build-wiki/
-.pi/skills/build-wiki/scripts/{clean-and-dedupe.mjs,validate.mjs}
+.githooks/pre-commit
+.pi/skills/build-wiki/SKILL.md
+.pi/skills/build-wiki/scripts/{clean-and-dedupe,split-raw,relink-raw,build-review-cards,validate}.mjs
 ```

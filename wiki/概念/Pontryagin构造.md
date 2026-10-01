@@ -54,4 +54,4 @@ $$[S^n,S^m]\;\cong\;\Omega^{\mathrm{fr}}_{n-m}$$
 
 ## 参考源
 
-- [[从微分观点看拓扑-伴读#📘 第7章 标架式协边和 Pontryagin 构造]]
+- [[从微分观点看拓扑-第07章-标架式协边和Pontryagin构造#📘 第7章 标架式协边和 Pontryagin 构造]]

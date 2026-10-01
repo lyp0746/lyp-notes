@@ -1,0 +1,15 @@
+#!/bin/sh
+# pre-commit — 提交前校验 wikilink（含标题锚点）与 wiki 页 frontmatter。
+# 找不到 node 时跳过（不阻塞提交）。可用 git commit --no-verify 临时绕过。
+NODE=""
+for c in node node.exe /d/nvm/v22.19.0/node.exe "D:/nvm/v22.19.0/node.exe"; do
+  if command -v "$c" >/dev/null 2>&1; then NODE="$c"; break; fi
+done
+if [ -z "$NODE" ]; then
+  echo "[pre-commit] 未找到 node，跳过 vault 校验"
+  exit 0
+fi
+"$NODE" ".pi/skills/build-wiki/scripts/validate.mjs" --ignore '^AGENTS\.md$' || {
+  echo "[pre-commit] 校验失败，提交已中止（git commit --no-verify 可跳过）"
+  exit 1
+}
