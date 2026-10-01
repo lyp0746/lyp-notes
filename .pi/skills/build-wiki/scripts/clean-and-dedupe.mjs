@@ -49,6 +49,7 @@ const conv = makeConverter();
 const stripThinking = h => {
   let s = h.replace(/<details>[\s\S]*?<\/details>\s*/gi, '');
   s = s.replace(/<p>\s*思考[：:]\s*<\/p>\s*<blockquote>[\s\S]*?<\/blockquote>/i, '').replace(/<p>\s*思考[：:]\s*<\/p>/i, '');
+  s = s.replace(/<p>\s*📊\s*统计[：:][\s\S]*?<\/p>\s*/gi, '');
   return s;
 };
 const htmlToMd = h => {
