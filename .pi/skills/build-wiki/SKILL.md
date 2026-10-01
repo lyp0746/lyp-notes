@@ -89,9 +89,9 @@ description: 把 raw 原始素材（DeepSeek 网页版导出工具产出的对�
 
 `总索引.md`、`素材索引.md`、`知识索引.md`、`概念索引.md`、`实体索引.md`、`主题索引.md`、`产出索引.md`，列出同层全部页面及一句话摘要。
 
-- **更新 `数学大地图.md`**（顶层地图，**五视角**：分支 / 历史 / 方法母题 / 抽象层次 / 应用）：① 在 §1 对应分支挂上新书（`**分支 ★** — [[书名]]（[[书名-导读]]）`）；② 出现跨分支联系时，优先在 §3「**方法母题**」表补一格，系统性的另在 §6「交叉主线」新增一条主题页并登记 [[主题索引]]；③ 若现有五视角不够，在 §0 增加新视角。
-- **方法论类素材**（如与 AI 的对话、学习心得）：原文放 `raw/数学/方法论/`，提炼成 `wiki/主题/…方法论.md`，并挂到地图 §7「学习方法论（元层）」。
-- 可视版 `数学大地图.canvas` 同步加减节点（分支 group / file 节点，保持 id 唯一、边不悬空、file 路径存在）。
+- **地图自动维护**：编辑 `.pi/skills/build-wiki/map.config.json`（分支 / 书目 / 交叉主线的唯一来源），运行 `node scripts/update-map.mjs --vault .` → 自动生成 `数学大地图.canvas` 与 `数学大地图.md` 中 `<!-- MAP:AUTO:START/END -->` 之间的分支块（**概念清单自动从 `wiki/知识索引.md` 抓取**）；`--check` 只报告漂移（未登记的书 / 缺失文件）。
+- 手写部分：§3「方法母题」表、§2 历史脉络等仍在 `数学大地图.md` 中人工维护；出现**跨分支联系**优先补 §3 表，系统性的在 `map.config.json` 的 `crosslines.files` 加桥接主题页并登记 [[主题索引]]。
+- **对话 / 方法论素材**（与 AI 的对话）：原文放 `raw/数学/对话/`（Sider 导出可批量转为 `## 提问 N / ## 回答 N`），提炼成 `wiki/主题/…` 页并挂到地图。
 
 ### 7. 校验
 
@@ -129,7 +129,8 @@ node .pi/skills/build-wiki/scripts/relink-raw.mjs --root .
 # 6. 生成 output（章节地图 / 速查表 / 学习路线 / 复习卡）
 node .pi/skills/build-wiki/scripts/build-review-cards.mjs --in "raw/数学/<分支>/<书名>" \
      --out "output/<书>复习卡.md" --title "<书>" --link "<书名>-伴读" --tags "数学,<分支>"
-# 7. 更新全部索引 + 数学大地图（分支/母题/交叉主线）+ 同步 Canvas
+# 7. 更新索引；编辑 map.config.json 后自动重建地图与 Canvas
+node .pi/skills/build-wiki/scripts/update-map.mjs --vault .
 # 8. 运行校验
 node .pi/skills/build-wiki/scripts/validate.mjs --ignore '^AGENTS\.md$'
 # 9. 提交（pre-commit 会自动校验）
@@ -172,5 +173,6 @@ output/产出索引.md + {章节地图, 核心概念速查表, 学习路线, 复
 templates/{读书笔记模板,概念笔记模板}.md
 .githooks/pre-commit
 .pi/skills/build-wiki/SKILL.md
-.pi/skills/build-wiki/scripts/{clean-and-dedupe,split-raw,normalize-raw,relink-raw,build-review-cards,validate}.mjs
+.pi/skills/build-wiki/map.config.json   # 地图数据源（分支/书目/交叉主线）
+.pi/skills/build-wiki/scripts/{clean-and-dedupe,split-raw,normalize-raw,relink-raw,build-review-cards,update-map,validate}.mjs
 ```
