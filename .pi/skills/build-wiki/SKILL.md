@@ -59,6 +59,7 @@ description: 把 raw 原始素材（DeepSeek 网页版导出工具产出的对�
   - 产物：`书名-第NN章-内容.md`（每章一文件）+ `书名-伴读.md`（目录页，链向各章）。
   - 拆分**原样搬运轮次、不改正文**；拆完做一次「单体 vs 拆分」归一化比对，确认零损失（见“质量检查清单”）。
 - 每个 raw 文件加 frontmatter（`type: literature`）。
+- **去对话样板**：`node scripts/normalize-raw.mjs --dir <章节目录>`。精读导出中绝大多数轮次是「下一节 / 详解提问」这类无信息量的指令（正文全在回答里），该脚本删除 `## 提问 N` / `## 回答 N` 外壳、只留正文，有信息的提问保留为引用块（只动外壳、不动正文，可逆）。
 - 若 wiki 里已有指向旧单体的锚点，运行 `node scripts/relink-raw.mjs --root <vault根> [--dry-run]` 自动改指到章节文件。
 
 ### 4. 编译 wiki（中文命名）
@@ -116,6 +117,8 @@ node .pi/skills/build-wiki/scripts/clean-and-dedupe.mjs --in raw/_inbox --out "r
 # 2. 按章拆分 + 生成目录（新书先在 split-raw.mjs 的 PRESETS 加一条）
 node .pi/skills/build-wiki/scripts/split-raw.mjs --in "raw/数学/<分支>/<书名>/<书名>-伴读.md" \
      --outdir "raw/数学/<分支>/<书名>" --book <preset> --toc "raw/数学/<分支>/<书名>/<书名>-伴读.md"
+# 2.5 去掉「下一节 / 详解提问」等对话样板，只留正文
+node .pi/skills/build-wiki/scripts/normalize-raw.mjs --dir "raw/数学/<分支>/<书名>"
 # 3. 若有旧单体锚点，改指到章节文件
 node .pi/skills/build-wiki/scripts/relink-raw.mjs --root .
 # 4. 编译 wiki 概念/实体/主题页（结构见第 4 步）
@@ -136,7 +139,7 @@ node .pi/skills/build-wiki/scripts/validate.mjs --ignore '^AGENTS\.md$'
 
 ## 质量检查清单
 
-- [ ] raw 无重复块、无思考过程、无统计脚注，且**已按章拆分为 `书名-第NN章-*.md` 并有 `书名-伴读.md` 目录**；拆分前后正文归一化比对零损失。
+- [ ] raw 无重复块、无思考过程、无统计脚注，且**已按章拆分为 `书名-第NN章-*.md` 并有 `书名-伴读.md` 目录**；已去除「下一节/详解提问」样板外壳；拆分前后正文归一化比对零损失。
 - [ ] wiki 文件名全中文；每个概念 ≥ 2 条 `[[链接]]`。
 - [ ] 概念页含 `定义/直观/核心要点/关键推导/典型例子/易错点/关系/深入问题/参考源`，信息密度 ≈2.5–4 KB/页。
 - [ ] 每个 wiki 页有完整五字段 frontmatter 与「参考源」；参考源用**标题锚点**指向 raw 章节文件。
@@ -163,5 +166,5 @@ output/产出索引.md + {章节地图, 核心概念速查表, 学习路线, 复
 templates/{读书笔记模板,概念笔记模板}.md
 .githooks/pre-commit
 .pi/skills/build-wiki/SKILL.md
-.pi/skills/build-wiki/scripts/{clean-and-dedupe,split-raw,relink-raw,build-review-cards,validate}.mjs
+.pi/skills/build-wiki/scripts/{clean-and-dedupe,split-raw,normalize-raw,relink-raw,build-review-cards,validate}.mjs
 ```
