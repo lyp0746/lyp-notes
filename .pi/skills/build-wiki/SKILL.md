@@ -89,8 +89,9 @@ description: 把 raw 原始素材（DeepSeek 网页版导出工具产出的对�
 
 `总索引.md`、`素材索引.md`、`知识索引.md`、`概念索引.md`、`实体索引.md`、`主题索引.md`、`产出索引.md`，列出同层全部页面及一句话摘要。
 
-- **更新 `数学大地图.md`**：在对应分支挂上新书（`**分支 ★** — [[书名]]（[[书名-导读]]）`）；出现跨分支联系时在「交叉主线」新增一条主题页。
-- 可视版 `数学大地图.canvas` 同步加减节点（新增/平移分支 group 与 file 节点，保持 id 唯一、边不悬空）。
+- **更新 `数学大地图.md`**（顶层地图，**五视角**：分支 / 历史 / 方法母题 / 抽象层次 / 应用）：① 在 §1 对应分支挂上新书（`**分支 ★** — [[书名]]（[[书名-导读]]）`）；② 出现跨分支联系时，优先在 §3「**方法母题**」表补一格，系统性的另在 §6「交叉主线」新增一条主题页并登记 [[主题索引]]；③ 若现有五视角不够，在 §0 增加新视角。
+- **方法论类素材**（如与 AI 的对话、学习心得）：原文放 `raw/数学/方法论/`，提炼成 `wiki/主题/…方法论.md`，并挂到地图 §7「学习方法论（元层）」。
+- 可视版 `数学大地图.canvas` 同步加减节点（分支 group / file 节点，保持 id 唯一、边不悬空、file 路径存在）。
 
 ### 7. 校验
 
@@ -120,18 +121,18 @@ node .pi/skills/build-wiki/scripts/clean-and-dedupe.mjs --in raw/_inbox --out "r
 # 2. 按章拆分 + 生成目录（新书先在 split-raw.mjs 的 PRESETS 加一条）
 node .pi/skills/build-wiki/scripts/split-raw.mjs --in "raw/数学/<分支>/<书名>/<书名>-伴读.md" \
      --outdir "raw/数学/<分支>/<书名>" --book <preset> --toc "raw/数学/<分支>/<书名>/<书名>-伴读.md"
-# 2.5 去掉「下一节 / 详解提问」等对话样板，只留正文
+# 3. 去掉「下一节 / 详解提问」等对话样板，只留正文
 node .pi/skills/build-wiki/scripts/normalize-raw.mjs --dir "raw/数学/<分支>/<书名>"
-# 3. 若有旧单体锚点，改指到章节文件
+# 4. 若有旧单体锚点，改指到章节文件
 node .pi/skills/build-wiki/scripts/relink-raw.mjs --root .
-# 6. 编译 wiki 概念/实体/主题页（结构见第 4 步）
-# 7. 生成 output（章节地图/速查表/学习路线/复习卡）
+# 5. 编译 wiki 概念/实体/主题页（结构见第 4 步）；方法论类另存 raw/数学/方法论 + wiki/主题/…方法论
+# 6. 生成 output（章节地图 / 速查表 / 学习路线 / 复习卡）
 node .pi/skills/build-wiki/scripts/build-review-cards.mjs --in "raw/数学/<分支>/<书名>" \
      --out "output/<书>复习卡.md" --title "<书>" --link "<书名>-伴读" --tags "数学,<分支>"
-# 8. 更新全部索引 + 把新书挂到 数学大地图（必要时加交叉主线）
-# 9. 运行校验
+# 7. 更新全部索引 + 数学大地图（分支/母题/交叉主线）+ 同步 Canvas
+# 8. 运行校验
 node .pi/skills/build-wiki/scripts/validate.mjs --ignore '^AGENTS\.md$'
-# 10. 提交（pre-commit 会自动校验）
+# 9. 提交（pre-commit 会自动校验）
 ```
 
 ## 命名与规范速查
@@ -149,6 +150,7 @@ node .pi/skills/build-wiki/scripts/validate.mjs --ignore '^AGENTS\.md$'
 - [ ] 每个 wiki 页有完整五字段 frontmatter 与「参考源」；参考源用**标题锚点**指向 raw 章节文件。
 - [ ] output 报告链接回 wiki，且含**复习卡**（自动提取自 raw 问题清单）。
 - [ ] 主题层有**跨书桥接**页，避免图谱分成互不连通的团。
+- [ ] [[数学大地图]] 与 `数学大地图.canvas` 已更新：新书挂在对应分支，跨分支联系进了「方法母题」表或「交叉主线」；Canvas id 唯一、边不悬空。
 - [ ] 所有索引（`总索引`/`素材索引`/`知识索引`/`概念索引`/`实体索引`/`主题索引`/`产出索引`）与目录一致。
 - [ ] `validate.mjs` 通过：目标文件、标题锚点、frontmatter 全部 0 错。
 - [ ] 如启用 Git：工作区干净、远程已同步、pre-commit 钩子生效。
