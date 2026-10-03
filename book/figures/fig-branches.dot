@@ -5,6 +5,8 @@ digraph G {
   MATH [label="数学", shape=ellipse, fillcolor="#1B1B1B", fontcolor="white", fontsize=18, width=1.1];
   b_base [label="基础  0 本·0 概念", fillcolor="#5B7DB1", fontcolor="#1B1B1B", width=3.2];
   MATH -> b_base;
+  b_guide [label="数学导览  1 本·2 概念", fillcolor="#DDDDDD", fontcolor="#1B1B1B", width=3.2];
+  MATH -> b_guide;
   b_alg [label="代数  2 本·58 概念", fillcolor="#D79B00", fontcolor="#1B1B1B", width=3.2];
   MATH -> b_alg;
   b_ana [label="分析  3 本·50 概念", fillcolor="#6FA84A", fontcolor="#1B1B1B", width=3.2];
@@ -21,6 +23,8 @@ digraph G {
   MATH -> b_num;
   b_app [label="应用与交叉  0 本·0 概念", fillcolor="#E8A33D", fontcolor="#1B1B1B", width=3.2];
   MATH -> b_app;
+  bk_PCM [label="普林斯顿数学指南", fillcolor="#EAF0F6", fontcolor="#20303F"];
+  b_guide -> bk_PCM;
   bk_AT [label="代数Artin", fillcolor="#EAF0F6", fontcolor="#20303F"];
   b_alg -> bk_AT;
   bk_LA [label="线性代数应该这样学", fillcolor="#EAF0F6", fontcolor="#20303F"];

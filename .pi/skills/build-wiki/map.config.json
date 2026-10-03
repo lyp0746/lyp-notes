@@ -10,6 +10,13 @@
       "placeholders": ["◻ 集合论 · 数理逻辑", "◻ 公理化 · 范畴论", "◻ 证明 / 类型论"]
     },
     {
+      "id": "guide", "label": "数学导览", "color": "4",
+      "books": [
+        { "key": "PCM", "title": "普林斯顿数学指南", "导读": "wiki/主题/普林斯顿数学指南-导读.md", "伴读": "raw/数学/综合/普林斯顿数学指南/普林斯顿数学指南-伴读.md" }
+      ],
+      "placeholders": ["◻ 数学史 · 数学家传记", "◻ 数学百科 · 工具书"]
+    },
+    {
       "id": "alg", "label": "代数", "color": "5",
       "books": [
         { "key": "AT", "title": "代数Artin", "导读": "wiki/主题/代数Artin-导读.md", "伴读": "raw/数学/代数/代数Artin-伴读.md" },
@@ -101,7 +108,8 @@
       "wiki/主题/概率、统计与重尾：三条不确定性路径.md",
       "wiki/主题/形式语言与计算：编译器的数学骨架.md",
       "wiki/主题/数值线性代数：矩阵计算的稳定性.md",
-      "wiki/主题/微积分的三种讲法：从 Thomas 到小平与高木.md"
+      "wiki/主题/微积分的三种讲法：从 Thomas 到小平与高木.md",
+      "wiki/主题/两幅地图：普林斯顿数学指南与数学大地图.md"
     ],
     "note2": "## 微积分内部的统一与元层\n\n[[微积分符号表]] · [[微积分核心概念速查表]] · [[微积分复习卡]] · [[拓扑与分析概念辨析]]"
   },
@@ -121,6 +129,7 @@
     { "book": "PD", "bridge": 14 }, { "book": "SP", "bridge": 14 }, { "book": "SS", "bridge": 14 }, { "book": "BT", "bridge": 14 }, { "book": "FT", "bridge": 14 },
     { "book": "CP", "bridge": 15 }, { "book": "CSAPP", "bridge": 15 },
     { "book": "NLA", "bridge": 16 }, { "book": "LA", "bridge": 16 }, { "book": "CSAPP", "bridge": 16 },
-    { "book": "CA", "bridge": 17 }, { "book": "CM", "bridge": 17 }, { "book": "MA", "bridge": 17 }
+    { "book": "CA", "bridge": 17 }, { "book": "CM", "bridge": 17 }, { "book": "MA", "bridge": 17 },
+    { "book": "PCM", "bridge": 18 }
   ]
 }

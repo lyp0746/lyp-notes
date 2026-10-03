@@ -2,6 +2,7 @@ digraph G {
   graph [bgcolor="white", rankdir=LR, nodesep=0.2, ranksep=1.2];
   node [shape=box, style="rounded,filled", penwidth=0, fontname="Microsoft YaHei", fontsize=12];
   edge [color="#A9C0D6", penwidth=1.1];
+  B_PCM [label="普林斯顿数学指南", fillcolor="#DDD", fontcolor="#1B1B1B"];
   B_AT [label="代数Artin", fillcolor="#D79B00", fontcolor="#1B1B1B"];
   B_LA [label="线性代数应该这样学", fillcolor="#D79B00", fontcolor="#1B1B1B"];
   B_CA [label="托马斯微积分", fillcolor="#6FA84A", fontcolor="#1B1B1B"];
@@ -36,6 +37,7 @@ digraph G {
   T_15 [label="形式语言与计算：编译器的数学骨架", fillcolor="#F2F2F2", fontcolor="#20303F"];
   T_16 [label="数值线性代数：矩阵计算的稳定性", fillcolor="#F2F2F2", fontcolor="#20303F"];
   T_17 [label="微积分的三种讲法：从 Thomas 到小平与高木", fillcolor="#F2F2F2", fontcolor="#20303F"];
+  T_18 [label="两幅地图：普林斯顿数学指南与数学大地图", fillcolor="#F2F2F2", fontcolor="#20303F"];
   B_CA -> T_0;
   B_DT -> T_0;
   B_LA -> T_1;
@@ -78,4 +80,5 @@ digraph G {
   B_CA -> T_17;
   B_CM -> T_17;
   B_MA -> T_17;
+  B_PCM -> T_18;
 }

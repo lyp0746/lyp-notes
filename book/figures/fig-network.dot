@@ -2,6 +2,8 @@ graph G {
   graph [bgcolor="white", overlap=prism, splines=true, outputorder=edgesfirst, size="9,9", dpi=220];
   node [shape=circle, style=filled, penwidth=0, label="", width=0.09, fixedsize=true];
   edge [color="#9AAFC455", penwidth=0.4];
+  "数学的统一性" [fillcolor="#999999"];
+  "哥德尔不完备定理与希尔伯特纲领" [fillcolor="#999999"];
   "群" [fillcolor="#D79B00"];
   "群同态与同构" [fillcolor="#D79B00"];
   "陪集与拉格朗日定理" [fillcolor="#D79B00"];
@@ -306,6 +308,8 @@ graph G {
   "导出的流形" -- "本征值与本征向量";
   "导出的流形" -- "斯托克斯定理与散度定理";
   "斯托克斯定理与散度定理" -- "本征值与本征向量";
+  "数学的统一性" -- "数学的统一性";
+  "哥德尔不完备定理与希尔伯特纲领" -- "数学的统一性";
   "光滑流形与光滑映射" -- "切空间与导射";
   "光滑流形与光滑映射" -- "正则值与正则点";
   "代数基本定理-拓扑证明" -- "光滑流形与光滑映射";
