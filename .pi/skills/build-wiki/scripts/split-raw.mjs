@@ -64,6 +64,19 @@ const PRESETS = {
       '第7章': '标架式协边和Pontryagin构造', '第8章': '练习', '附录': '1维流形的分类',
     },
   },
+  artin: {
+    prefix: '代数Artin',
+    defaultChapter: null,
+    detect: [
+      { re: /^##\s*(第[一二三四五六七八九十]+章)/m, key: m => m[1], window: 2500 },
+    ],
+    names: {
+      '第一章': '矩阵', '第二章': '群论', '第三章': '向量空间', '第四章': '线性变换',
+      '第五章': '正交性', '第六章': '对称', '第七章': '群论进阶', '第八章': '双线性型',
+      '第九章': '线性群', '第十章': '群表示', '第十一章': '环', '第十二章': '因子分解',
+      '第十三章': '代数整数', '第十四章': '模', '第十五章': '域', '第十六章': '伽罗瓦理论',
+    },
+  },
 };
 
 const IN = args.in, OUTDIR = args.outdir;
@@ -90,7 +103,7 @@ for (const block of blocks) {
   const ans = block.split(/^##\s*回答\s*\d+\s*$/m).slice(1).join('\n');
   let key = null;
   for (const d of cfg.detect) {
-    const m = ans.match(d.re);
+    const m = (d.window ? ans.slice(0, d.window) : ans).match(d.re);
     if (m) { key = d.key(m); break; }
   }
   if (key) cur = key;
@@ -99,9 +112,14 @@ for (const block of blocks) {
   groups.get(k).push(block.trim());
 }
 
+const CN = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9, 十: 10 };
+const cn2num = s => s.length === 1 ? CN[s] : (s[0] === '十' ? 10 + (CN[s[1]] || 0) : (s[1] === '十' ? CN[s[0]] * 10 + (s[2] ? CN[s[2]] : 0) : null));
 const fileName = key => {
   const name = cfg.names[key] || key;
-  const k2 = key.replace(/^第(\d+)章$/, (_, d) => `第${d.padStart(2, '0')}章`);
+  let k2 = key;
+  let m = key.match(/^第(\d+)章$/);
+  if (m) k2 = `第${m[1].padStart(2, '0')}章`;
+  else if ((m = key.match(/^第([一二三四五六七八九十]+)章$/))) k2 = `第${String(cn2num(m[1])).padStart(2, '0')}章`;
   return `${prefix}-${k2}-${name}.md`;
 };
 

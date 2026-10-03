@@ -10,8 +10,9 @@
       "placeholders": ["◻ 集合论 · 数理逻辑", "◻ 公理化 · 范畴论", "◻ 证明 / 类型论"]
     },
     {
-      "id": "alg", "label": "代数", "color": "5", "next": true,
+      "id": "alg", "label": "代数", "color": "5",
       "books": [
+        { "key": "AT", "title": "代数Artin", "导读": "wiki/主题/代数Artin-导读.md", "伴读": "raw/数学/代数/代数Artin-伴读.md" },
         { "key": "LA", "title": "线性代数应该这样学", "导读": "wiki/主题/线性代数应该这样学-导读.md", "伴读": "raw/数学/线性代数/线性代数应该这样学/线性代数应该这样学-伴读.md" }
       ],
       "placeholders": ["◻ 抽象代数 · 表示论", "◻ 交换代数 · 同调代数", "◻ 数论"]
@@ -53,6 +54,7 @@
   ],
   "links": [
     { "from": "LA", "to": "CA", "label": "基底" },
+    { "from": "AT", "to": "LA", "label": "结构 vs 具体" },
     { "from": "CA", "to": "DT", "label": "升级到流形" }
   ],
   "crosslines": {
@@ -72,7 +74,7 @@
   },
   "bridgeLinks": [
     { "book": "CA", "bridge": 0 }, { "book": "DT", "bridge": 0 },
-    { "book": "LA", "bridge": 1 }, { "book": "DT", "bridge": 1 },
+    { "book": "LA", "bridge": 1 }, { "book": "DT", "bridge": 1 }, { "book": "AT", "bridge": 1 },
     { "book": "LA", "bridge": 2 }, { "book": "CA", "bridge": 2 },
     { "book": "LA", "bridge": 3 },
     { "book": "CA", "bridge": 4 }, { "book": "DT", "bridge": 4 },
