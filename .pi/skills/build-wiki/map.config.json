@@ -20,7 +20,9 @@
     {
       "id": "ana", "label": "分析", "color": "2",
       "books": [
-        { "key": "CA", "title": "托马斯微积分", "导读": "wiki/主题/托马斯微积分-导读.md", "伴读": "raw/数学/微积分/托马斯微积分/托马斯微积分-伴读.md" }
+        { "key": "CA", "title": "托马斯微积分", "导读": "wiki/主题/托马斯微积分-导读.md", "伴读": "raw/数学/微积分/托马斯微积分/托马斯微积分-伴读.md" },
+        { "key": "CM", "title": "微积分入门", "导读": "wiki/主题/微积分入门-导读.md", "伴读": "raw/数学/微积分/微积分入门/微积分入门-伴读.md" },
+        { "key": "MA", "title": "数学分析概论", "导读": "wiki/主题/数学分析概论-导读.md", "伴读": "raw/数学/微积分/数学分析概论/数学分析概论-伴读.md" }
       ],
       "placeholders": ["◻ 实分析 · 复分析 · 泛函", "◻ 微分方程 · 调和分析"]
     },
@@ -98,7 +100,8 @@
       "wiki/主题/表示与近似：从浮点数到函数带.md",
       "wiki/主题/概率、统计与重尾：三条不确定性路径.md",
       "wiki/主题/形式语言与计算：编译器的数学骨架.md",
-      "wiki/主题/数值线性代数：矩阵计算的稳定性.md"
+      "wiki/主题/数值线性代数：矩阵计算的稳定性.md",
+      "wiki/主题/微积分的三种讲法：从 Thomas 到小平与高木.md"
     ],
     "note2": "## 微积分内部的统一与元层\n\n[[微积分符号表]] · [[微积分核心概念速查表]] · [[微积分复习卡]] · [[拓扑与分析概念辨析]]"
   },
@@ -117,6 +120,7 @@
     { "book": "CSAPP", "bridge": 13 }, { "book": "MOS", "bridge": 13 }, { "book": "KG", "bridge": 13 }, { "book": "CA", "bridge": 13 },
     { "book": "PD", "bridge": 14 }, { "book": "SP", "bridge": 14 }, { "book": "SS", "bridge": 14 }, { "book": "BT", "bridge": 14 }, { "book": "FT", "bridge": 14 },
     { "book": "CP", "bridge": 15 }, { "book": "CSAPP", "bridge": 15 },
-    { "book": "NLA", "bridge": 16 }, { "book": "LA", "bridge": 16 }, { "book": "CSAPP", "bridge": 16 }
+    { "book": "NLA", "bridge": 16 }, { "book": "LA", "bridge": 16 }, { "book": "CSAPP", "bridge": 16 },
+    { "book": "CA", "bridge": 17 }, { "book": "CM", "bridge": 17 }, { "book": "MA", "bridge": 17 }
   ]
 }

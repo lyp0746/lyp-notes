@@ -5,6 +5,8 @@ digraph G {
   B_AT [label="代数Artin", fillcolor="#D79B00", fontcolor="#1B1B1B"];
   B_LA [label="线性代数应该这样学", fillcolor="#D79B00", fontcolor="#1B1B1B"];
   B_CA [label="托马斯微积分", fillcolor="#6FA84A", fontcolor="#1B1B1B"];
+  B_CM [label="微积分入门", fillcolor="#6FA84A", fontcolor="#1B1B1B"];
+  B_MA [label="数学分析概论", fillcolor="#6FA84A", fontcolor="#1B1B1B"];
   B_DT [label="从微分观点看拓扑", fillcolor="#9673A6", fontcolor="#1B1B1B"];
   B_KG [label="高观点下的初等数学", fillcolor="#B5739D", fontcolor="#1B1B1B"];
   B_PD [label="概率导论", fillcolor="#C9A227", fontcolor="#1B1B1B"];
@@ -33,6 +35,7 @@ digraph G {
   T_14 [label="概率、统计与重尾：三条不确定性路径", fillcolor="#F2F2F2", fontcolor="#20303F"];
   T_15 [label="形式语言与计算：编译器的数学骨架", fillcolor="#F2F2F2", fontcolor="#20303F"];
   T_16 [label="数值线性代数：矩阵计算的稳定性", fillcolor="#F2F2F2", fontcolor="#20303F"];
+  T_17 [label="微积分的三种讲法：从 Thomas 到小平与高木", fillcolor="#F2F2F2", fontcolor="#20303F"];
   B_CA -> T_0;
   B_DT -> T_0;
   B_LA -> T_1;
@@ -72,4 +75,7 @@ digraph G {
   B_NLA -> T_16;
   B_LA -> T_16;
   B_CSAPP -> T_16;
+  B_CA -> T_17;
+  B_CM -> T_17;
+  B_MA -> T_17;
 }

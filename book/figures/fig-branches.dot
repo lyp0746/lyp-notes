@@ -7,7 +7,7 @@ digraph G {
   MATH -> b_base;
   b_alg [label="代数  2 本·58 概念", fillcolor="#D79B00", fontcolor="#1B1B1B", width=3.2];
   MATH -> b_alg;
-  b_ana [label="分析  1 本·44 概念", fillcolor="#6FA84A", fontcolor="#1B1B1B", width=3.2];
+  b_ana [label="分析  3 本·50 概念", fillcolor="#6FA84A", fontcolor="#1B1B1B", width=3.2];
   MATH -> b_ana;
   b_geo [label="几何与拓扑  1 本·11 概念", fillcolor="#9673A6", fontcolor="#1B1B1B", width=3.2];
   MATH -> b_geo;
@@ -27,6 +27,10 @@ digraph G {
   b_alg -> bk_LA;
   bk_CA [label="托马斯微积分", fillcolor="#EAF0F6", fontcolor="#20303F"];
   b_ana -> bk_CA;
+  bk_CM [label="微积分入门", fillcolor="#EAF0F6", fontcolor="#20303F"];
+  b_ana -> bk_CM;
+  bk_MA [label="数学分析概论", fillcolor="#EAF0F6", fontcolor="#20303F"];
+  b_ana -> bk_MA;
   bk_DT [label="从微分观点看拓扑", fillcolor="#EAF0F6", fontcolor="#20303F"];
   b_geo -> bk_DT;
   bk_KG [label="高观点下的初等数学", fillcolor="#EAF0F6", fontcolor="#20303F"];
