@@ -117,9 +117,13 @@ Windows 下用 `D:\Git\cmd\git.exe`，注意 `safe.directory` 与中文路径（
 把 `数学大地图` + 交叉主线 + 各书导读编译成一本可分享的 PDF，**随读书库生长**：新增书籍后只要更新 `map.config.json` 与 `wiki/知识索引.md`，重跑即可刷新。
 
 ```bash
-node .pi/skills/build-wiki/scripts/build-book.mjs --vault .          # 出 Markdown + PDF
+node .pi/skills/build-wiki/scripts/build-figures.mjs --vault .      # 先重生成插图（Graphviz）
+node .pi/skills/build-wiki/scripts/build-book.mjs --vault .          # 再出 Markdown + PDF
 node .pi/skills/build-wiki/scripts/build-book.mjs --vault . --md-only # 只出 Markdown
 ```
+
+- 插图：`build-figures.mjs` 用 **Graphviz `dot`** 从 `map.config.json` / 主题页共现自动生成 `book/figures/*.png`（概念网络、分支树、书↔主线二部图、五视角星图）。新书/新概念一加，图自动更新。
+- 排版：`book/nature.tex` 定义 Nature 风样式（配色、章节标题、页眉页脚、图注、封面 `\maketitle`）；`book/book.config.json` 控制书名/副标题/作者（作者改为真实署名）/部分结构。
 
 - 数据源：`book/book.config.json`（书名/副标题/部分结构）+ `map.config.json`（分支/书目/交叉主线）+ `wiki/知识索引.md`（概念清单）。
 - 合成书稿 `book/数学地图.md` 后用 **Pandoc + XeLaTeX** 转 PDF：`documentclass=book`、`CJKmainfont=SimSun`、`mainfont=Cambria`（Windows 自带、覆盖箭头/符号）。
@@ -187,7 +191,7 @@ raw/素材索引.md
 raw/<学科>/<分支>/<书名>/{书名-伴读.md, 书名-第NN章-内容.md}
 wiki/知识索引.md + 概念/ 实体/ 主题/（各含 *索引.md）
 output/产出索引.md + {章节地图, 核心概念速查表, 学习路线, 复习卡}
-book/book.config.json + {前言.md, 数学地图.md, 数学地图.pdf}
+book/book.config.json + {前言.md, 图版.md, nature.tex, _meta.tex, figures/*.png, 数学地图.md, 数学地图.pdf}
 templates/{读书笔记模板,概念笔记模板}.md
 .githooks/pre-commit
 .pi/skills/build-wiki/SKILL.md
