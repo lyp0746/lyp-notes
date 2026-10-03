@@ -32,6 +32,13 @@
       "placeholders": ["◻ 点集拓扑 · 代数拓扑", "◻ 微分几何 · 黎曼几何"]
     },
     {
+      "id": "elem", "label": "初等数学（高观点）", "color": "6",
+      "books": [
+        { "key": "KG", "title": "高观点下的初等数学", "导读": "wiki/主题/高观点下的初等数学-导读.md", "伴读": "raw/数学/初等数学/高观点下的初等数学/高观点下的初等数学-伴读.md" }
+      ],
+      "placeholders": ["◻ 初等算术 · 数论", "◻ 经典几何 · 尺规作图"]
+    },
+    {
       "id": "prob", "label": "概率与统计", "color": "3",
       "books": [],
       "placeholders": ["◻ 概率论 · 数理统计", "◻ 随机过程 · 信息论"]
@@ -55,7 +62,9 @@
   "links": [
     { "from": "LA", "to": "CA", "label": "基底" },
     { "from": "AT", "to": "LA", "label": "结构 vs 具体" },
-    { "from": "CA", "to": "DT", "label": "升级到流形" }
+    { "from": "CA", "to": "DT", "label": "升级到流形" },
+    { "from": "KG", "to": "LA", "label": "不变量/对偶" },
+    { "from": "KG", "to": "CA", "label": "精确/近似" }
   ],
   "crosslines": {
     "label": "交叉主线", "color": "4",
@@ -68,7 +77,11 @@
       "wiki/主题/微积分基本定理的普适性.md",
       "wiki/主题/向量分析三大定理.md",
       "wiki/主题/拓扑与分析概念辨析.md",
-      "wiki/主题/数学学习方法论.md"
+      "wiki/主题/数学学习方法论.md",
+      "wiki/主题/不变量与对偶：从格拉斯曼到线性代数.md",
+      "wiki/主题/数系扩张与承袭性：从算术到四元数.md",
+      "wiki/主题/精确与近似：数学的两副面孔.md",
+      "wiki/主题/几何的变换群视角：从欧几里得到爱尔朗根.md"
     ],
     "note2": "## 微积分内部的统一与元层\n\n[[微积分符号表]] · [[微积分核心概念速查表]] · [[微积分复习卡]] · [[拓扑与分析概念辨析]]"
   },
@@ -78,6 +91,10 @@
     { "book": "LA", "bridge": 2 }, { "book": "CA", "bridge": 2 },
     { "book": "LA", "bridge": 3 },
     { "book": "CA", "bridge": 4 }, { "book": "DT", "bridge": 4 },
-    { "book": "CA", "bridge": 5 }
+    { "book": "CA", "bridge": 5 },
+    { "book": "KG", "bridge": 8 }, { "book": "LA", "bridge": 8 }, { "book": "AT", "bridge": 8 },
+    { "book": "KG", "bridge": 9 }, { "book": "LA", "bridge": 9 }, { "book": "AT", "bridge": 9 },
+    { "book": "KG", "bridge": 10 }, { "book": "CA", "bridge": 10 },
+    { "book": "KG", "bridge": 11 }, { "book": "DT", "bridge": 11 }, { "book": "LA", "bridge": 11 }
   ]
 }
