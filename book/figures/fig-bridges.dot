@@ -9,8 +9,12 @@ digraph G {
   B_KG [label="高观点下的初等数学", fillcolor="#B5739D", fontcolor="#1B1B1B"];
   B_PD [label="概率导论", fillcolor="#C9A227", fontcolor="#1B1B1B"];
   B_SP [label="随机过程", fillcolor="#C9A227", fontcolor="#1B1B1B"];
+  B_SS [label="统计学七支柱", fillcolor="#C9A227", fontcolor="#1B1B1B"];
+  B_BT [label="贝叶斯思维", fillcolor="#C9A227", fontcolor="#1B1B1B"];
+  B_FT [label="肥尾效应", fillcolor="#C9A227", fontcolor="#1B1B1B"];
   B_CSAPP [label="深入理解计算机系统", fillcolor="#B85450", fontcolor="#1B1B1B"];
   B_MOS [label="现代操作系统", fillcolor="#B85450", fontcolor="#1B1B1B"];
+  B_CP [label="编译原理", fillcolor="#B85450", fontcolor="#1B1B1B"];
   T_0 [label="导数与线性化：分析的共同语言", fillcolor="#F2F2F2", fontcolor="#20303F"];
   T_1 [label="线性结构：从向量空间到切空间", fillcolor="#F2F2F2", fontcolor="#20303F"];
   T_2 [label="内积与正交：从范数到梯度", fillcolor="#F2F2F2", fontcolor="#20303F"];
@@ -25,6 +29,8 @@ digraph G {
   T_11 [label="几何的变换群视角：从欧几里得到爱尔朗根", fillcolor="#F2F2F2", fontcolor="#20303F"];
   T_12 [label="概率与谱：从协方差到随机矩阵", fillcolor="#F2F2F2", fontcolor="#20303F"];
   T_13 [label="表示与近似：从浮点数到函数带", fillcolor="#F2F2F2", fontcolor="#20303F"];
+  T_14 [label="概率、统计与重尾：三条不确定性路径", fillcolor="#F2F2F2", fontcolor="#20303F"];
+  T_15 [label="形式语言与计算：编译器的数学骨架", fillcolor="#F2F2F2", fontcolor="#20303F"];
   B_CA -> T_0;
   B_DT -> T_0;
   B_LA -> T_1;
@@ -54,4 +60,11 @@ digraph G {
   B_MOS -> T_13;
   B_KG -> T_13;
   B_CA -> T_13;
+  B_PD -> T_14;
+  B_SP -> T_14;
+  B_SS -> T_14;
+  B_BT -> T_14;
+  B_FT -> T_14;
+  B_CP -> T_15;
+  B_CSAPP -> T_15;
 }

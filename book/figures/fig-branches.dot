@@ -13,9 +13,9 @@ digraph G {
   MATH -> b_geo;
   b_elem [label="初等数学（高观点）  1 本·29 概念", fillcolor="#B5739D", fontcolor="#1B1B1B", width=3.2];
   MATH -> b_elem;
-  b_prob [label="概率与统计  2 本·7 概念", fillcolor="#C9A227", fontcolor="#1B1B1B", width=3.2];
+  b_prob [label="概率与统计  5 本·16 概念", fillcolor="#C9A227", fontcolor="#1B1B1B", width=3.2];
   MATH -> b_prob;
-  b_disc [label="离散数学与理论CS  2 本·6 概念", fillcolor="#B85450", fontcolor="#1B1B1B", width=3.2];
+  b_disc [label="离散数学与理论CS  3 本·9 概念", fillcolor="#B85450", fontcolor="#1B1B1B", width=3.2];
   MATH -> b_disc;
   b_num [label="数值与计算  0 本·0 概念", fillcolor="#5B8FF9", fontcolor="#1B1B1B", width=3.2];
   MATH -> b_num;
@@ -35,8 +35,16 @@ digraph G {
   b_prob -> bk_PD;
   bk_SP [label="随机过程", fillcolor="#EAF0F6", fontcolor="#20303F"];
   b_prob -> bk_SP;
+  bk_SS [label="统计学七支柱", fillcolor="#EAF0F6", fontcolor="#20303F"];
+  b_prob -> bk_SS;
+  bk_BT [label="贝叶斯思维", fillcolor="#EAF0F6", fontcolor="#20303F"];
+  b_prob -> bk_BT;
+  bk_FT [label="肥尾效应", fillcolor="#EAF0F6", fontcolor="#20303F"];
+  b_prob -> bk_FT;
   bk_CSAPP [label="深入理解计算机系统", fillcolor="#EAF0F6", fontcolor="#20303F"];
   b_disc -> bk_CSAPP;
   bk_MOS [label="现代操作系统", fillcolor="#EAF0F6", fontcolor="#20303F"];
   b_disc -> bk_MOS;
+  bk_CP [label="编译原理", fillcolor="#EAF0F6", fontcolor="#20303F"];
+  b_disc -> bk_CP;
 }
