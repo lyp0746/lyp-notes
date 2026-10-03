@@ -60,8 +60,10 @@
     },
     {
       "id": "num", "label": "数值与计算", "color": "1",
-      "books": [],
-      "placeholders": ["◻ 数值线性代数", "◻ 最优化 · 科学计算"]
+      "books": [
+        { "key": "NLA", "title": "数值线性代数", "导读": "wiki/主题/数值线性代数-导读.md", "伴读": "raw/数学/数值与计算/数值线性代数/数值线性代数-伴读.md" }
+      ],
+      "placeholders": ["◻ 最优化 · 科学计算", "◻ 数值微分方程"]
     },
     {
       "id": "app", "label": "应用与交叉", "color": "2",
@@ -95,7 +97,8 @@
       "wiki/主题/概率与谱：从协方差到随机矩阵.md",
       "wiki/主题/表示与近似：从浮点数到函数带.md",
       "wiki/主题/概率、统计与重尾：三条不确定性路径.md",
-      "wiki/主题/形式语言与计算：编译器的数学骨架.md"
+      "wiki/主题/形式语言与计算：编译器的数学骨架.md",
+      "wiki/主题/数值线性代数：矩阵计算的稳定性.md"
     ],
     "note2": "## 微积分内部的统一与元层\n\n[[微积分符号表]] · [[微积分核心概念速查表]] · [[微积分复习卡]] · [[拓扑与分析概念辨析]]"
   },
@@ -113,6 +116,7 @@
     { "book": "PD", "bridge": 12 }, { "book": "SP", "bridge": 12 }, { "book": "LA", "bridge": 12 },
     { "book": "CSAPP", "bridge": 13 }, { "book": "MOS", "bridge": 13 }, { "book": "KG", "bridge": 13 }, { "book": "CA", "bridge": 13 },
     { "book": "PD", "bridge": 14 }, { "book": "SP", "bridge": 14 }, { "book": "SS", "bridge": 14 }, { "book": "BT", "bridge": 14 }, { "book": "FT", "bridge": 14 },
-    { "book": "CP", "bridge": 15 }, { "book": "CSAPP", "bridge": 15 }
+    { "book": "CP", "bridge": 15 }, { "book": "CSAPP", "bridge": 15 },
+    { "book": "NLA", "bridge": 16 }, { "book": "LA", "bridge": 16 }, { "book": "CSAPP", "bridge": 16 }
   ]
 }

@@ -17,7 +17,7 @@ digraph G {
   MATH -> b_prob;
   b_disc [label="离散数学与理论CS  3 本·9 概念", fillcolor="#B85450", fontcolor="#1B1B1B", width=3.2];
   MATH -> b_disc;
-  b_num [label="数值与计算  0 本·0 概念", fillcolor="#5B8FF9", fontcolor="#1B1B1B", width=3.2];
+  b_num [label="数值与计算  1 本·3 概念", fillcolor="#5B8FF9", fontcolor="#1B1B1B", width=3.2];
   MATH -> b_num;
   b_app [label="应用与交叉  0 本·0 概念", fillcolor="#E8A33D", fontcolor="#1B1B1B", width=3.2];
   MATH -> b_app;
@@ -47,4 +47,6 @@ digraph G {
   b_disc -> bk_MOS;
   bk_CP [label="编译原理", fillcolor="#EAF0F6", fontcolor="#20303F"];
   b_disc -> bk_CP;
+  bk_NLA [label="数值线性代数", fillcolor="#EAF0F6", fontcolor="#20303F"];
+  b_num -> bk_NLA;
 }

@@ -94,6 +94,9 @@ const conceptsOf = bookTitle => {
 
 // ---------- 组装书稿 ----------
 const allBooks = mapCfg.branches.flatMap(b => (b.books || []).map(x => ({ ...x, branch: b.label })));
+const conceptSet = new Set();
+for (const x of allBooks) for (const c of conceptsOf(x.title)) conceptSet.add(c);
+const totalConcepts = conceptSet.size;
 const date = cfg.date || new Date().toISOString().slice(0, 10);
 let out = [];
 out.push('---');
@@ -107,11 +110,11 @@ out.push(`> ${cfg.blurb || ''}`);
 out.push('');
 
 // 本版信息（自动）
-out.push('# 本版信息');
+out.push('## 本版信息');
 out.push('');
 out.push(`本 PDF 由 \`build-book.mjs\` 自动生成，构建日期 **${date}**。`);
 out.push('');
-out.push(`当前收录 **${allBooks.length}** 本书、**${allBooks.reduce((s, x) => s + conceptsOf(x.title).length, 0)}** 个概念节点：`);
+out.push(`当前收录 **${allBooks.length}** 本书、**${totalConcepts}** 个概念节点：`);
 out.push('');
 for (const b of allBooks) out.push(`- 《${b.title}》（${b.branch}）`);
 out.push('');
@@ -121,7 +124,21 @@ out.push('\\newpage');
 out.push('');
 
 for (const part of cfg.parts || []) {
-  if (part.title) { out.push(`# ${part.title}`); out.push(''); }
+  if (part.title) {
+    const t = part.title;
+    out.push('```{=latex}');
+    out.push('\\clearpage');
+    out.push('\\thispagestyle{empty}');
+    out.push(`\\addcontentsline{toc}{part}{${t}}`);
+    out.push('\\pagecolor{natblue}');
+    out.push('\\vspace*{\\fill}');
+    out.push(`{\\centering\\sffamily\\bfseries\\color{white}\\fontsize{34}{40}\\selectfont ${t}\\par}`);
+    out.push('\\vspace*{\\fill}');
+    out.push('\\clearpage');
+    out.push('\\pagecolor{white}');
+    out.push('```');
+    out.push('');
+  }
   for (const src of part.sources || []) {
     if (src.type === 'file' || src.type === 'guide') {
       const c = includeChapter(src.path, 2);
@@ -179,7 +196,8 @@ if (!pandoc) { console.warn('[警告] 未找到 Pandoc，已只生成 Markdown�
 // 生成动态页眉/封面变量
 fs.writeFileSync(path.join(VAULT, 'book/_meta.tex'),
   `\\renewcommand{\\booktitle}{${(cfg.title || '').replace(/[\\{}]/g, '')}}\n` +
-  `\\renewcommand{\\booksubtitle}{${(cfg.subtitle || '').replace(/[\\{}]/g, '')}}\n`, 'utf8');
+  `\\renewcommand{\\booksubtitle}{${(cfg.subtitle || '').replace(/[\\{}]/g, '')}}\n` +
+  `\\renewcommand{\\bookmeta}{收录 ${allBooks.length} 本书 · ${totalConcepts} 个概念节点}\n`, 'utf8');
 
 const rel = p => path.relative(VAULT, p).replace(/\\/g, '/');
 const pdfArgs = [
