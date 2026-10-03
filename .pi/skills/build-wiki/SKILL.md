@@ -112,6 +112,18 @@ git remote add origin <url> && git push -u origin main
 
 Windows 下用 `D:\Git\cmd\git.exe`，注意 `safe.directory` 与中文路径（`core.quotepath=false`）。
 
+首次已配置好远程，日常只需：
+
+```bash
+# 已完成一批整理后：提交 + 推送（缺一不可）
+git add -A && git commit -m "..."
+git push origin main          # ← 别忘这一步，否则 GitHub 不更新
+# 确认已同步：git status 应显示 “up to date / ahead 0”
+```
+
+> 远程：`https://github.com/lyp0746/lyp-notes.git`（`git remote -v` 查看）。用 Windows git 时写成
+> `/mnt/d/Git/cmd/git.exe push origin main`。
+
 ### 9. 生成 PDF 书（可选，配置驱动 / 可持续更新）
 
 把 `数学大地图` + 交叉主线 + 各书导读编译成一本可分享的 PDF，**随读书库生长**：新增书籍后只要更新 `map.config.json` 与 `wiki/知识索引.md`，重跑即可刷新。
@@ -154,7 +166,9 @@ node .pi/skills/build-wiki/scripts/update-map.mjs --vault .
 node .pi/skills/build-wiki/scripts/validate.mjs --ignore '^AGENTS\.md$'
 # 9. （可选）重新生成 PDF 书
 node .pi/skills/build-wiki/scripts/build-book.mjs --vault .
-# 10. 提交（pre-commit 会自动校验）
+# 10. 提交；pre-commit 会自动校验
+# 11. 推送（别忘了，否则 GitHub 仍是旧版）
+git add -A && git commit -m "..." && git push origin main
 ```
 
 ## 命名与规范速查

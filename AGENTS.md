@@ -88,6 +88,7 @@ summary: 一句话摘要（30–80 字）
 5. **更新索引与大图**：更新各层索引；在 `.pi/skills/build-wiki/map.config.json` 登记新书，运行 `node .pi/skills/build-wiki/scripts/update-map.mjs --vault .` 自动重建 [[数学大地图]] 分支块与 `数学大地图.canvas`。
 6. **校验**：`node .pi/skills/build-wiki/scripts/validate.mjs --ignore '^AGENTS\.md$'` 检查链接/锚点/frontmatter；提交前钩子会自动运行。
 7. **生成 PDF 书（可选）**：`node .pi/skills/build-wiki/scripts/build-book.mjs --vault .` 把 [[数学大地图]] + 交叉主线 + 各书导读 + 概念清单编译成 `book/数学地图.pdf`（配置驱动，新增书籍后重跑即刷新）。
+8. **提交并推送**：`git add -A && git commit -m "..."`，然后 `git push origin main`。**每批完成后必须推送**，否则 GitHub 上仍是旧版（本库远程：`https://github.com/lyp0746/lyp-notes.git`）。
 
 ## 行为规则
 
