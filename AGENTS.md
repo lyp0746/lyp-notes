@@ -24,6 +24,7 @@
 │   ├── 实体/                  # 人物、书籍（含 实体索引.md）
 │   └── 主题/                  # 跨概念 / 跨书综述（含 主题索引.md）
 ├── output/                    # 产出报告（含 产出索引.md）
+├── book/                      # PDF 书稿（book.config.json + 前言 + 生成的 数学地图.md/.pdf）
 ├── templates/                 # 笔记模板
 ├── .githooks/pre-commit       # 提交前链接/锚点/frontmatter 校验
 ├── .pi/skills/build-wiki/     # raw → wiki → output 流程与脚本
@@ -85,6 +86,7 @@ summary: 一句话摘要（30–80 字）
 4. **记录来源**：每个 wiki 页在「参考源」用**标题锚点**指向对应 raw 章节文件，如 `[[托马斯微积分-第05章-积分法#第5章 积分法 · 5.4 微积分基本定理]]`。
 5. **更新索引与大图**：更新各层索引；在 `.pi/skills/build-wiki/map.config.json` 登记新书，运行 `node .pi/skills/build-wiki/scripts/update-map.mjs --vault .` 自动重建 [[数学大地图]] 分支块与 `数学大地图.canvas`。
 6. **校验**：`node .pi/skills/build-wiki/scripts/validate.mjs --ignore '^AGENTS\.md$'` 检查链接/锚点/frontmatter；提交前钩子会自动运行。
+7. **生成 PDF 书（可选）**：`node .pi/skills/build-wiki/scripts/build-book.mjs --vault .` 把 [[数学大地图]] + 交叉主线 + 各书导读 + 概念清单编译成 `book/数学地图.pdf`（配置驱动，新增书籍后重跑即刷新）。
 
 ## 行为规则
 

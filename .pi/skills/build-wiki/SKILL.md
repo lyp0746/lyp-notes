@@ -112,6 +112,21 @@ git remote add origin <url> && git push -u origin main
 
 Windows 下用 `D:\Git\cmd\git.exe`，注意 `safe.directory` 与中文路径（`core.quotepath=false`）。
 
+### 9. 生成 PDF 书（可选，配置驱动 / 可持续更新）
+
+把 `数学大地图` + 交叉主线 + 各书导读编译成一本可分享的 PDF，**随读书库生长**：新增书籍后只要更新 `map.config.json` 与 `wiki/知识索引.md`，重跑即可刷新。
+
+```bash
+node .pi/skills/build-wiki/scripts/build-book.mjs --vault .          # 出 Markdown + PDF
+node .pi/skills/build-wiki/scripts/build-book.mjs --vault . --md-only # 只出 Markdown
+```
+
+- 数据源：`book/book.config.json`（书名/副标题/部分结构）+ `map.config.json`（分支/书目/交叉主线）+ `wiki/知识索引.md`（概念清单）。
+- 合成书稿 `book/数学地图.md` 后用 **Pandoc + XeLaTeX** 转 PDF：`documentclass=book`、`CJKmainfont=SimSun`、`mainfont=Cambria`（Windows 自带、覆盖箭头/符号）。
+- 脚本自动做 Obsidian → Pandoc 清洗：去 frontmatter/mermaid/canvas 嵌入、把 `[[双链]]` 降为纯文本、处理 callout 与缺字符号。
+- 新增一本书 = 在 `map.config.json` 加书 + 写 `wiki/主题/<书名>-导读.md` + 在 `wiki/知识索引.md` 加概念清单；重跑即出现在 PDF 的「各书导读」「分支与概念清单」中。
+- 换书/换主题：改 `book/book.config.json` 的 `parts`（`map` / `crosslines` / `bookGuides` / `branchIndex` / `file`）。
+
 ## 接入一本新书（TL;DR）
 
 ```bash
@@ -133,7 +148,9 @@ node .pi/skills/build-wiki/scripts/build-review-cards.mjs --in "raw/数学/<分�
 node .pi/skills/build-wiki/scripts/update-map.mjs --vault .
 # 8. 运行校验
 node .pi/skills/build-wiki/scripts/validate.mjs --ignore '^AGENTS\.md$'
-# 9. 提交（pre-commit 会自动校验）
+# 9. （可选）重新生成 PDF 书
+node .pi/skills/build-wiki/scripts/build-book.mjs --vault .
+# 10. 提交（pre-commit 会自动校验）
 ```
 
 ## 命名与规范速查
@@ -170,9 +187,10 @@ raw/素材索引.md
 raw/<学科>/<分支>/<书名>/{书名-伴读.md, 书名-第NN章-内容.md}
 wiki/知识索引.md + 概念/ 实体/ 主题/（各含 *索引.md）
 output/产出索引.md + {章节地图, 核心概念速查表, 学习路线, 复习卡}
+book/book.config.json + {前言.md, 数学地图.md, 数学地图.pdf}
 templates/{读书笔记模板,概念笔记模板}.md
 .githooks/pre-commit
 .pi/skills/build-wiki/SKILL.md
 .pi/skills/build-wiki/map.config.json   # 地图数据源（分支/书目/交叉主线）
-.pi/skills/build-wiki/scripts/{clean-and-dedupe,split-raw,normalize-raw,relink-raw,build-review-cards,update-map,validate}.mjs
+.pi/skills/build-wiki/scripts/{clean-and-dedupe,split-raw,normalize-raw,relink-raw,build-review-cards,update-map,validate,build-book}.mjs
 ```
