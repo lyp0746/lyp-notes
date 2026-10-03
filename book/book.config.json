@@ -1,7 +1,7 @@
 {
   "title": "数学地图",
   "subtitle": "用联系读数学",
-  "author": "0_Note 数学读书笔记库",
+  "author": "李毅芃",
   "lang": "zh-CN",
   "date": "",
   "blurb": "一本会随读书笔记库一起生长的数学导览：不是按分支罗列知识，而是按「联系」组织——同一母题在代数、分析、几何、概率、数值中反复出现。",
@@ -11,6 +11,7 @@
   "mainFont": "Cambria",
   "parts": [
     { "title": "", "sources": [{ "type": "file", "path": "book/前言.md" }] },
+    { "title": "图版 · 全书导览", "sources": [{ "type": "file", "path": "book/图版.md" }] },
     { "title": "第一部分 · 五视角看数学", "sources": [{ "type": "map" }] },
     { "title": "第二部分 · 交叉主线", "sources": [{ "type": "crosslines", "exclude": ["wiki/主题/数学学习方法论.md"] }] },
     { "title": "第三部分 · 各书导读", "sources": [{ "type": "bookGuides" }] },

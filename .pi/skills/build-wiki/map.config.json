@@ -40,12 +40,18 @@
     },
     {
       "id": "prob", "label": "概率与统计", "color": "3",
-      "books": [],
-      "placeholders": ["◻ 概率论 · 数理统计", "◻ 随机过程 · 信息论"]
+      "books": [
+        { "key": "PD", "title": "概率导论", "导读": "wiki/主题/概率导论-导读.md", "伴读": "raw/数学/概率统计/概率导论/概率导论-伴读.md" },
+        { "key": "SP", "title": "随机过程", "导读": "wiki/主题/随机过程-导读.md", "伴读": "raw/数学/概率统计/随机过程/随机过程-伴读.md" }
+      ],
+      "placeholders": ["◻ 数理统计 · 贝叶斯推断", "◻ 信息论"]
     },
     {
       "id": "disc", "label": "离散数学与理论CS", "color": "3",
-      "books": [],
+      "books": [
+        { "key": "CSAPP", "title": "深入理解计算机系统", "导读": "wiki/主题/深入理解计算机系统-导读.md", "伴读": "raw/计算机/计算机系统/深入理解计算机系统/深入理解计算机系统-伴读.md" },
+        { "key": "MOS", "title": "现代操作系统", "导读": "wiki/主题/现代操作系统-导读.md", "伴读": "raw/计算机/操作系统/现代操作系统/现代操作系统-伴读.md" }
+      ],
       "placeholders": ["◻ 组合 · 图论", "◻ 算法 · 可计算性"]
     },
     {
@@ -81,7 +87,9 @@
       "wiki/主题/不变量与对偶：从格拉斯曼到线性代数.md",
       "wiki/主题/数系扩张与承袭性：从算术到四元数.md",
       "wiki/主题/精确与近似：数学的两副面孔.md",
-      "wiki/主题/几何的变换群视角：从欧几里得到爱尔朗根.md"
+      "wiki/主题/几何的变换群视角：从欧几里得到爱尔朗根.md",
+      "wiki/主题/概率与谱：从协方差到随机矩阵.md",
+      "wiki/主题/表示与近似：从浮点数到函数带.md"
     ],
     "note2": "## 微积分内部的统一与元层\n\n[[微积分符号表]] · [[微积分核心概念速查表]] · [[微积分复习卡]] · [[拓扑与分析概念辨析]]"
   },
@@ -95,6 +103,8 @@
     { "book": "KG", "bridge": 8 }, { "book": "LA", "bridge": 8 }, { "book": "AT", "bridge": 8 },
     { "book": "KG", "bridge": 9 }, { "book": "LA", "bridge": 9 }, { "book": "AT", "bridge": 9 },
     { "book": "KG", "bridge": 10 }, { "book": "CA", "bridge": 10 },
-    { "book": "KG", "bridge": 11 }, { "book": "DT", "bridge": 11 }, { "book": "LA", "bridge": 11 }
+    { "book": "KG", "bridge": 11 }, { "book": "DT", "bridge": 11 }, { "book": "LA", "bridge": 11 },
+    { "book": "PD", "bridge": 12 }, { "book": "SP", "bridge": 12 }, { "book": "LA", "bridge": 12 },
+    { "book": "CSAPP", "bridge": 13 }, { "book": "MOS", "bridge": 13 }, { "book": "KG", "bridge": 13 }, { "book": "CA", "bridge": 13 }
   ]
 }

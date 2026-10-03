@@ -98,7 +98,6 @@ const date = cfg.date || new Date().toISOString().slice(0, 10);
 let out = [];
 out.push('---');
 out.push(`title: "${cfg.title}"`);
-if (cfg.subtitle) out.push(`subtitle: "${cfg.subtitle}"`);
 out.push(`author: "${cfg.author || ''}"`);
 out.push(`date: "${date}"`);
 out.push(`lang: "${cfg.lang || 'zh-CN'}"`);
@@ -177,18 +176,27 @@ let pandoc = null;
 for (const c of pandocCandidates) { try { execFileSync(c, ['--version'], { stdio: 'ignore' }); pandoc = c; break; } catch {} }
 if (!pandoc) { console.warn('[警告] 未找到 Pandoc，已只生成 Markdown；装好 Pandoc 后重跑即可出 PDF。'); process.exit(0); }
 
+// 生成动态页眉/封面变量
+fs.writeFileSync(path.join(VAULT, 'book/_meta.tex'),
+  `\\renewcommand{\\booktitle}{${(cfg.title || '').replace(/[\\{}]/g, '')}}\n` +
+  `\\renewcommand{\\booksubtitle}{${(cfg.subtitle || '').replace(/[\\{}]/g, '')}}\n`, 'utf8');
+
+const rel = p => path.relative(VAULT, p).replace(/\\/g, '/');
 const pdfArgs = [
-  `${path.relative(VAULT, outBase)}.md`.replace(/\\/g, '/'),
-  '-o', `${path.relative(VAULT, outBase)}.pdf`.replace(/\\/g, '/'),
+  rel(outBase) + '.md',
+  '-o', rel(outBase) + '.pdf',
   '--pdf-engine=xelatex',
-  '--toc', '--toc-depth=2', '--top-level-division=part',
+  '--toc', '--toc-depth=2', '--top-level-division=part', '--standalone',
+  '--resource-path=book;book/figures;.',
   '-V', 'documentclass=book', '-V', 'classoption=oneside',
   '-V', `CJKmainfont=${cfg.cjkFont || 'SimSun'}`,
   '-V', `CJKsansfont=${cfg.cjkSans || 'SimHei'}`,
   '-V', `mainfont=${cfg.mainFont || 'Cambria'}`,
-  '-V', 'geometry:margin=2.4cm', '-V', `papersize=${cfg.papersize || 'a4'}`, '-V', 'fontsize=11pt', '-V', 'linestretch=1.15',
-  '-V', 'colorlinks=true', '-V', 'linkcolor=blue', '-V', 'toc-title=目录',
-  '--standalone',
+  '-V', 'geometry:margin=2.4cm', '-V', `papersize=${cfg.papersize || 'a4'}`,
+  '-V', 'fontsize=11pt', '-V', 'linestretch=1.2',
+  '-V', 'toc-title=目录',
+  '--include-in-header=book/nature.tex',
+  '--include-in-header=book/_meta.tex',
 ];
 try {
   execFileSync(pandoc, pdfArgs, { cwd: VAULT, stdio: ['ignore', 'inherit', 'inherit'] });

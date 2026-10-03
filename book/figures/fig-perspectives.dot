@@ -1,0 +1,16 @@
+graph G {
+  graph [bgcolor="white", overlap=false, splines=true];
+  node [shape=box, style="rounded,filled", penwidth=0, fontname="Microsoft YaHei", fontsize=13];
+  edge [color="#C9C9C9", penwidth=1.6];
+  C [label="数学", shape=ellipse, fillcolor="#1B1B1B", fontcolor="white", fontsize=20, width=1.3];
+  v0 [label="分支\n有哪些领域？", fillcolor="#5B8FF922", color="#5B8FF9", penwidth=1.4, fontcolor="#20303F"];
+  C -- v0;
+  v1 [label="历史\n怎么长出来的？", fillcolor="#6FA84A22", color="#6FA84A", penwidth=1.4, fontcolor="#20303F"];
+  C -- v1;
+  v2 [label="方法母题\n什么处处复用？", fillcolor="#C9A22722", color="#C9A227", penwidth=1.4, fontcolor="#20303F"];
+  C -- v2;
+  v3 [label="抽象层次\n同一件事的不同高度", fillcolor="#9673A622", color="#9673A6", penwidth=1.4, fontcolor="#20303F"];
+  C -- v3;
+  v4 [label="应用\n谁在用它？", fillcolor="#E8A33D22", color="#E8A33D", penwidth=1.4, fontcolor="#20303F"];
+  C -- v4;
+}
