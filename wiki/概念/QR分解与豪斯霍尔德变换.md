@@ -1,6 +1,6 @@
 ---
 title: "QR分解与豪斯霍尔德变换"
-tags: [数学, 数值计算]
+tags: [数学, 数值计算, AI整理]
 created: "2026-10-03"
 type: permanent
 summary: "用正交矩阵把 A 分解为 QR；Householder 反射与 Gram–Schmidt 是两种算法，最小二乘应解 QR 而非正规方程。"

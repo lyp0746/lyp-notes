@@ -11,6 +11,7 @@
   "mainFont": "Cambria",
   "parts": [
     { "title": "", "sources": [{ "type": "file", "path": "book/前言.md" }] },
+    { "title": "来源说明", "sources": [{ "type": "file", "path": "wiki/主题/来源说明：原始精读与 AI 整理.md" }] },
     { "title": "图版 · 全书导览", "sources": [{ "type": "file", "path": "book/图版.md" }] },
     { "title": "第一部分 · 五视角看数学", "sources": [{ "type": "map" }] },
     { "title": "第二部分 · 交叉主线", "sources": [{ "type": "crosslines", "exclude": ["wiki/主题/数学学习方法论.md"] }] },

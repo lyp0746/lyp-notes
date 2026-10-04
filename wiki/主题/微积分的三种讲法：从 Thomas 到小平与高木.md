@@ -1,6 +1,6 @@
 ---
 title: "微积分的三种讲法：从 Thomas 到小平与高木"
-tags: [数学, 微积分, 主题]
+tags: [数学, 微积分, 主题, AI整理]
 created: "2026-10-03"
 type: permanent
 summary: "跨书桥接：Thomas 讲计算与应用，高木讲经典严格，小平讲形式与统一——同一门微积分的三副面孔。"
