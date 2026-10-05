@@ -75,6 +75,18 @@
       "placeholders": ["◻ 最优化 · 科学计算", "◻ 数值微分方程"]
     },
     {
+      "id": "iris", "label": "数据科学 · 鸢尾花书", "color": "6",
+      "books": [
+        { "key": "MX", "title": "矩阵力量", "导读": "wiki/主题/矩阵力量-导读.md", "伴读": "raw/数学/线性代数/矩阵力量/矩阵力量-伴读.md" },
+        { "key": "LNA", "title": "线性代数不难", "导读": "wiki/主题/线性代数不难-导读.md", "伴读": "raw/数学/线性代数/线性代数不难/线性代数不难-伴读.md" },
+        { "key": "SJ", "title": "数学要素", "导读": "wiki/主题/数学要素-导读.md", "伴读": "raw/数学/综合/数学要素/数学要素-伴读.md" },
+        { "key": "TZ", "title": "统计至简", "导读": "wiki/主题/统计至简-导读.md", "伴读": "raw/数学/概率统计/统计至简/统计至简-伴读.md" },
+        { "key": "DY", "title": "数据有道", "导读": "wiki/主题/数据有道-导读.md", "伴读": "raw/数学/数据科学/数据有道/数据有道-伴读.md" },
+        { "key": "MLI", "title": "机器学习", "导读": "wiki/主题/机器学习-导读.md", "伴读": "raw/数学/数据科学/机器学习/机器学习-伴读.md" }
+      ],
+      "placeholders": ["◻ 深度学习 · 大模型", "◻ 强化学习"]
+    },
+    {
       "id": "app", "label": "应用与交叉", "color": "2",
       "books": [],
       "placeholders": ["◻ 数学物理 · 数据科学", "◻ 金融数学 · 运筹学"]
@@ -109,7 +121,8 @@
       "wiki/主题/形式语言与计算：编译器的数学骨架.md",
       "wiki/主题/数值线性代数：矩阵计算的稳定性.md",
       "wiki/主题/微积分的三种讲法：从 Thomas 到小平与高木.md",
-      "wiki/主题/两幅地图：普林斯顿数学指南与数学大地图.md"
+      "wiki/主题/两幅地图：普林斯顿数学指南与数学大地图.md",
+      "wiki/主题/鸢尾花书：从加减乘除到机器学习.md"
     ],
     "note2": "## 微积分内部的统一与元层\n\n[[微积分符号表]] · [[微积分核心概念速查表]] · [[微积分复习卡]] · [[拓扑与分析概念辨析]]"
   },
@@ -130,6 +143,9 @@
     { "book": "CP", "bridge": 15 }, { "book": "CSAPP", "bridge": 15 },
     { "book": "NLA", "bridge": 16 }, { "book": "LA", "bridge": 16 }, { "book": "CSAPP", "bridge": 16 },
     { "book": "CA", "bridge": 17 }, { "book": "CM", "bridge": 17 }, { "book": "MA", "bridge": 17 },
-    { "book": "PCM", "bridge": 18 }
+    { "book": "PCM", "bridge": 18 },
+    { "book": "MX", "bridge": 19 }, { "book": "LNA", "bridge": 19 }, { "book": "SJ", "bridge": 19 },
+    { "book": "TZ", "bridge": 19 }, { "book": "DY", "bridge": 19 }, { "book": "MLI", "bridge": 19 },
+    { "book": "LA", "bridge": 19 }, { "book": "CA", "bridge": 19 }
   ]
 }

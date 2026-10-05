@@ -19,6 +19,12 @@ digraph G {
   B_MOS [label="现代操作系统", fillcolor="#B85450", fontcolor="#1B1B1B"];
   B_CP [label="编译原理", fillcolor="#B85450", fontcolor="#1B1B1B"];
   B_NLA [label="数值线性代数", fillcolor="#5B8FF9", fontcolor="#1B1B1B"];
+  B_MX [label="矩阵力量", fillcolor="#DDD", fontcolor="#1B1B1B"];
+  B_LNA [label="线性代数不难", fillcolor="#DDD", fontcolor="#1B1B1B"];
+  B_SJ [label="数学要素", fillcolor="#DDD", fontcolor="#1B1B1B"];
+  B_TZ [label="统计至简", fillcolor="#DDD", fontcolor="#1B1B1B"];
+  B_DY [label="数据有道", fillcolor="#DDD", fontcolor="#1B1B1B"];
+  B_MLI [label="机器学习", fillcolor="#DDD", fontcolor="#1B1B1B"];
   T_0 [label="导数与线性化：分析的共同语言", fillcolor="#F2F2F2", fontcolor="#20303F"];
   T_1 [label="线性结构：从向量空间到切空间", fillcolor="#F2F2F2", fontcolor="#20303F"];
   T_2 [label="内积与正交：从范数到梯度", fillcolor="#F2F2F2", fontcolor="#20303F"];
@@ -38,6 +44,7 @@ digraph G {
   T_16 [label="数值线性代数：矩阵计算的稳定性", fillcolor="#F2F2F2", fontcolor="#20303F"];
   T_17 [label="微积分的三种讲法：从 Thomas 到小平与高木", fillcolor="#F2F2F2", fontcolor="#20303F"];
   T_18 [label="两幅地图：普林斯顿数学指南与数学大地图", fillcolor="#F2F2F2", fontcolor="#20303F"];
+  T_19 [label="鸢尾花书：从加减乘除到机器学习", fillcolor="#F2F2F2", fontcolor="#20303F"];
   B_CA -> T_0;
   B_DT -> T_0;
   B_LA -> T_1;
@@ -81,4 +88,12 @@ digraph G {
   B_CM -> T_17;
   B_MA -> T_17;
   B_PCM -> T_18;
+  B_MX -> T_19;
+  B_LNA -> T_19;
+  B_SJ -> T_19;
+  B_TZ -> T_19;
+  B_DY -> T_19;
+  B_MLI -> T_19;
+  B_LA -> T_19;
+  B_CA -> T_19;
 }
