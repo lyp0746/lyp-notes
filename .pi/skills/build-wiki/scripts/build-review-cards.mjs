@@ -18,7 +18,7 @@ for (let i = 2; i < process.argv.length; i++) {
 const IN = args.in, OUT = args.out, TITLE = args.title || '读书';
 if (!IN || !OUT) { console.error('用法: node build-review-cards.mjs --in <目录> --out <文件> --title <书名>'); process.exit(1); }
 
-const MATCH = /主动回忆问题|发散性提问|发散性问题/;
+const MATCH = /主动回忆问题|发散性提问|发散性问题|发散性思考与提问/;
 const EXCL = /详解|联想|更深刻/;
 const created = args.created || new Date().toISOString().slice(0, 10);
 const tags = args.tags || '数学,读书笔记';
@@ -33,7 +33,7 @@ for (const f of files) {
   for (const line of lines) {
     const h = line.match(/^(#{1,3})\s+(.*)$/);
     if (h) {
-      const txt = h[2].trim();
+      const txt = h[2].trim().replace(/^\d+\.\s*/, '');
       if (h[1].length === 1) section = txt;
       if (MATCH.test(txt) && !EXCL.test(txt)) {
         flush(); capType = /主动回忆/.test(txt) ? 'recall' : 'dive'; capSection = section || txt; cap = { items: [] };

@@ -122,7 +122,8 @@
       "wiki/主题/数值线性代数：矩阵计算的稳定性.md",
       "wiki/主题/微积分的三种讲法：从 Thomas 到小平与高木.md",
       "wiki/主题/两幅地图：普林斯顿数学指南与数学大地图.md",
-      "wiki/主题/鸢尾花书：从加减乘除到机器学习.md"
+      "wiki/主题/鸢尾花书：从加减乘除到机器学习.md",
+      "wiki/主题/经典分析与现代测度：从黎曼到勒贝格.md"
     ],
     "note2": "## 微积分内部的统一与元层\n\n[[微积分符号表]] · [[微积分核心概念速查表]] · [[微积分复习卡]] · [[拓扑与分析概念辨析]]"
   },
@@ -143,6 +144,8 @@
     { "book": "CP", "bridge": 15 }, { "book": "CSAPP", "bridge": 15 },
     { "book": "NLA", "bridge": 16 }, { "book": "LA", "bridge": 16 }, { "book": "CSAPP", "bridge": 16 },
     { "book": "CA", "bridge": 17 }, { "book": "CM", "bridge": 17 }, { "book": "MA", "bridge": 17 },
+    { "book": "MA", "bridge": 20 }, { "book": "CM", "bridge": 20 },
+    { "book": "MA", "bridge": 4 },
     { "book": "PCM", "bridge": 18 },
     { "book": "MX", "bridge": 19 }, { "book": "LNA", "bridge": 19 }, { "book": "SJ", "bridge": 19 },
     { "book": "TZ", "bridge": 19 }, { "book": "DY", "bridge": 19 }, { "book": "MLI", "bridge": 19 },

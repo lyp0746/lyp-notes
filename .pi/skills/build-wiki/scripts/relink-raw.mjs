@@ -57,6 +57,18 @@ const BOOKS = {
       return null;
     },
   },
+  takagi: {
+    old: '数学分析概论-伴读', prefix: '数学分析概论',
+    names: { 1: '基本概念', 2: '微分', 3: '积分', 4: '无穷级数与一致收敛', 5: '解析函数及初等函数', 6: '傅里叶展开', 7: '微分续篇（隐函数）', 8: '多变量积分', 9: '勒贝格积分' },
+    appNames: { I: '无理数论', II: '若干特殊曲线' },
+    resolve(anchor) {
+      let m = anchor.match(/^第\s*(\d+)\s*章/);
+      if (m) return `数学分析概论-第${pad(m[1])}章-${this.names[+m[1]]}`;
+      m = anchor.match(/^附录\s*(I{1,2})\b/);
+      if (m) return `数学分析概论-附录${m[1]}-${this.appNames[m[1]]}`;
+      return null;
+    },
+  },
 };
 
 const active = args.book ? [args.book] : Object.keys(BOOKS);

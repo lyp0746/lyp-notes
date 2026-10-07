@@ -9,7 +9,7 @@ digraph G {
   MATH -> b_guide;
   b_alg [label="代数  2 本·58 概念", fillcolor="#D79B00", fontcolor="#1B1B1B", width=3.2];
   MATH -> b_alg;
-  b_ana [label="分析  3 本·50 概念", fillcolor="#6FA84A", fontcolor="#1B1B1B", width=3.2];
+  b_ana [label="分析  3 本·66 概念", fillcolor="#6FA84A", fontcolor="#1B1B1B", width=3.2];
   MATH -> b_ana;
   b_geo [label="几何与拓扑  1 本·11 概念", fillcolor="#9673A6", fontcolor="#1B1B1B", width=3.2];
   MATH -> b_geo;

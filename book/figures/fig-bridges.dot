@@ -45,6 +45,7 @@ digraph G {
   T_17 [label="微积分的三种讲法：从 Thomas 到小平与高木", fillcolor="#F2F2F2", fontcolor="#20303F"];
   T_18 [label="两幅地图：普林斯顿数学指南与数学大地图", fillcolor="#F2F2F2", fontcolor="#20303F"];
   T_19 [label="鸢尾花书：从加减乘除到机器学习", fillcolor="#F2F2F2", fontcolor="#20303F"];
+  T_20 [label="经典分析与现代测度：从黎曼到勒贝格", fillcolor="#F2F2F2", fontcolor="#20303F"];
   B_CA -> T_0;
   B_DT -> T_0;
   B_LA -> T_1;
@@ -87,6 +88,9 @@ digraph G {
   B_CA -> T_17;
   B_CM -> T_17;
   B_MA -> T_17;
+  B_MA -> T_20;
+  B_CM -> T_20;
+  B_MA -> T_4;
   B_PCM -> T_18;
   B_MX -> T_19;
   B_LNA -> T_19;
