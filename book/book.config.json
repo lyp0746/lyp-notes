@@ -15,8 +15,7 @@
     { "title": "图版 · 全书导览", "sources": [{ "type": "file", "path": "book/图版.md" }] },
     { "title": "第一部分 · 五视角看数学", "sources": [{ "type": "map" }] },
     { "title": "第二部分 · 交叉主线", "sources": [{ "type": "crosslines", "exclude": ["wiki/主题/数学学习方法论.md"] }] },
-    { "title": "第三部分 · 各书导读", "sources": [{ "type": "bookGuides" }] },
-    { "title": "第四部分 · 分支与概念清单", "sources": [{ "type": "branchIndex" }] },
-    { "title": "第五部分 · 学习方法论", "sources": [{ "type": "file", "path": "wiki/主题/数学学习方法论.md" }] }
+    { "title": "第三部分 · 分支与概念清单", "sources": [{ "type": "branchIndex" }] },
+    { "title": "第四部分 · 学习方法论", "sources": [{ "type": "file", "path": "wiki/主题/数学学习方法论.md" }] }
   ]
 }

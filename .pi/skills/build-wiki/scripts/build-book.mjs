@@ -125,7 +125,7 @@ out.push(`**二、AI 整理**（依据公开资料整理的补充概述，非本
 out.push('');
 for (const b of allBooks.filter(x => sources.ai.includes(x.title))) out.push(`- 《${b.title}》（${b.branch}）`);
 out.push('');
-out.push('> AI 整理的页面均带 `AI整理` 标签，导读页顶部有来源说明。增删书籍后更新 `map.config.json` 与 `wiki/知识索引.md`，重跑即刷新本 PDF。');
+out.push('> AI 整理的页面均带 `AI整理` 标签，对应页面顶部有来源说明。增删书籍后更新 `map.config.json` 与 `wiki/知识索引.md`，重跑即刷新本 PDF。');
 out.push('');
 out.push('\\newpage');
 out.push('');
