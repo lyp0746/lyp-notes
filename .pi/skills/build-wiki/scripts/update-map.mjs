@@ -167,10 +167,8 @@ let detail = mm.join('\n') + '\n\n';
 for (const b of cfg.branches) {
   const tag = b.next ? ' ◆（下一个计划）' : (b.books || []).length ? '' : ' ◻';
   detail += `### ${b.label}${tag}\n`;
-  for (const x of (b.books || [])) {
-    const cs = conceptsOf(x.title);
-    detail += `- **${x.title} ★** — [[${x.title}]]（[[${path.basename(x['导读'], '.md')}|导读]]）\n  ${cs.map(c => `[[${c}]]`).join(' · ')}\n`;
-  }
+  const bs = (b.books || []).map(x => `[[${x.title}]]`).join(' · ');
+  if (bs) detail += `- ${bs}\n`;
   for (const ph of (b.placeholders || [])) detail += `- ${ph}\n`;
   detail += '\n';
 }
